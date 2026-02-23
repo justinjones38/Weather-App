@@ -12,9 +12,41 @@
 
     <!-- Linking styles.css sheet -->
     <link href="css/styles.css" rel="stylesheet">
+
+    <!-- Linking Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
 </head>
 
 <body>
+    <header>
+        <p>Weather App</p>
+        <form class="weather-form">
+            <label for="location"></label>
+            <input type="text" placeholder="Please enter a city" name="location" id="location" class="form-input"
+                required>
+            <button type="submit" class="form-button">Enter</button>
+        </form>
+    </header>
+
+    <main>
+        <div class="intro-container">
+            <p class="intro-description">Thank you for visiting our site! Start by searching for a city to get updated
+                weather information</p>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p class="flaricon-credit">
+                Thanks to flaxicon for providing these weather icons for this app. 
+                You can visit their site for other great images too.
+            </p>
+        </div>
+    </footer>
     <script src="js/script.js"></script>
 </body>
 
