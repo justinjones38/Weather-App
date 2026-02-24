@@ -1,3 +1,4 @@
+
 // Getting weatherForm via documentQuerySelector to get form Data
 const weatherForm = document.querySelector(".weather-form");
 
@@ -6,6 +7,35 @@ const weatherData = document.querySelector(".weather-data-container");
 
 // Getting introContainer to hide welcoming text when seearching for city
 const introContainer = document.querySelector(".intro-container");
+
+
+
+// Function to return weather icons 
+const getWeatherIcon = (weatherCode) => {
+    if(weatherCode === 0) {
+        return {imgSrc: "./images/sun.png", info: "Clear Skies"}
+    } else if (weatherCode >= 1 && weatherCode <= 3) {
+        return {imgSrc: "./images/cloudy.png", info: "Partly Clouds"}
+    } else if (weatherCode === 45 || weatherCode === 48) {
+        return {imgSrc: "./images/fog.png", info: "Fog"}
+    } else if (weatherCode >= 51 && weatherCode <= 57) {
+        return {imgSrc: "./images/drizzle.png", info: "Drizzle"}
+    } else if(weatherCode >= 61 && weatherCode <=67) {
+        return {imgSrc: "./images/drizzle.png", info: "Rain"}
+    }  else if(weatherCode >= 71 && weatherCode <=77) {
+        return {imgSrc: "./images/snowy.png", info: "Snow"}
+    }  else if(weatherCode >= 80 && weatherCode <=82) {
+        return {imgSrc: "./images/heavy-rain.png", info: "Rain"}
+    }  else if(weatherCode === 85 || weatherCode === 86) {
+        return {imgSrc: "./images/snowy.png", info: "Snow"}
+    }  else {
+        return {imgSrc: "./images/thunderstoms.png", info: "Thunderstorms"}
+    }
+}
+
+
+
+
 
 weatherForm.addEventListener("submit", (event) => {
     event.preventDefault();
@@ -40,13 +70,47 @@ weatherForm.addEventListener("submit", (event) => {
             weatherLocation.textContent = location;
             weatherData.appendChild(weatherLocation);
 
+            // Getting weather logo and information using getWeatherIcon Function
+           const weatherIcon = getWeatherIcon(weatherInfo.daily.weather_code[0]);
+            console.log(weatherIcon);
+            
+            // Appending weatherIcon to weatherData container
+            const weatherImg = document.createElement("img");
+            weatherImg.src = weatherIcon.imgSrc;
+            weatherImg.className = "weather-data-img";
+            weatherImg.alt = weatherIcon.info;
+            weatherData.appendChild(weatherImg);
+            console.log(weatherImg);
+
             // Getting temperature and appending it to weatherContainer
             const temperature = document.createElement("p");
             temperature.className = "weather-data-temperature";
             temperature.textContent = `${Math.round(weatherInfo.current.temperature_2m)}${weatherInfo.current_units.temperature_2m}`;
             weatherData.appendChild(temperature);
-            console.log(temperature);
 
+            // Creating container to hold max/min temperature and appending it to weatherData container
+            const temperatureContainer = document.createElement("div");
+            temperatureContainer.className = "temperature-container";
+            weatherData.appendChild(temperatureContainer);
+
+            // Creating high temperature element and append it to weather container
+            const highTemperature = document.createElement("p");
+            highTemperature.className = "weather-data-min-max";
+            highTemperature.textContent = `H:${Math.round(weatherInfo.daily.temperature_2m_max[0])}${weatherInfo.current_units.temperature_2m}`;
+            temperatureContainer.appendChild(highTemperature);
+
+
+            // Getting low temperature and append it to weather container
+            const lowTemperature = document.createElement("p");
+            lowTemperature.className = "weather-data-min-max";
+            lowTemperature.textContent = `L:${Math.round(weatherInfo.daily.temperature_2m_min[0])}${weatherInfo.current_units.temperature_2m}`;
+            temperatureContainer.appendChild(lowTemperature);
+
+            // Appending current weather condition and appending it to weather container
+            const weatherCondition = document.createElement("p");
+            weatherCondition.className = "weather-data-condition";
+            weatherCondition.textContent = weatherIcon.info;
+            weatherData.appendChild(weatherCondition);
 
         } catch (error) {
             console.error(error);

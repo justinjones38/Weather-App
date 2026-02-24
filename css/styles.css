@@ -39,6 +39,7 @@ input {
 
 img {
     max-width: 100%;
+    display: block;
 }
 
 button:hover {
@@ -55,6 +56,8 @@ h1 {
     letter-spacing: 1px;
     opacity: var(--text-opacity);
     text-align: center;
+    text-transform: capitalize;
+    line-height: 1.3;
 }
 
 
@@ -146,6 +149,27 @@ header {
     margin: 1em auto;
 }
 
+.weather-data-img {
+    width: 7%;
+    min-width: 50px;
+    margin: 0 auto;;
+}
+
+.weather-data-temperature {
+    font-size: 2.5rem;
+    text-align: center;
+}
+
+.temperature-container {
+    display: flex;
+    justify-content: center;
+    gap: 0.5em;
+}
+
+.weather-data-condition {
+    text-align: center;
+    opacity: var(--text-opacity);
+}
 
 /* --------- FOOTER -------------- */
 
