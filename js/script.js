@@ -11,43 +11,55 @@ const introContainer = document.querySelector(".intro-container");
 
 
 // Function to return weather icons 
-const getWeatherIcon = (weatherCode) => {
-    if(weatherCode === 0) {
-        return {imgSrc: "./images/sun.png", info: "Clear Skies"}
-    } else if (weatherCode >= 1 && weatherCode <= 3) {
-        return {imgSrc: "./images/cloudy.png", info: "Partly Clouds"}
+const getWeatherIcon = (weatherCode, dayTime) => {
+    if (weatherCode === 0 && dayTime) {
+        return { imgSrc: "./images/sun.png", info: "Clear Skies" }
+    } else if (weatherCode === 0 && !dayTime) {
+        return { imgSrc: "./images/moon.png,", info: "Clear Skies" }
+    } else if (weatherCode >= 1 && weatherCode <= 3 && dayTime) {
+        return { imgSrc: "./images/cloudy.png", info: "Partly Cloudy" }
+    } else if (weatherCode >= 1 && weatherCode <= 3 && !dayTime) {
+        return { imgSrc: "./images/cloudy-night.png", info: "Partly Cloudy" }
     } else if (weatherCode === 45 || weatherCode === 48) {
-        return {imgSrc: "./images/fog.png", info: "Fog"}
+        return { imgSrc: "./images/fog.png", info: "Fog" }
     } else if (weatherCode >= 51 && weatherCode <= 57) {
-        return {imgSrc: "./images/drizzle.png", info: "Drizzle"}
-    } else if(weatherCode >= 61 && weatherCode <=67) {
-        return {imgSrc: "./images/drizzle.png", info: "Rain"}
-    }  else if(weatherCode >= 71 && weatherCode <=77) {
-        return {imgSrc: "./images/snowy.png", info: "Snow"}
-    }  else if(weatherCode >= 80 && weatherCode <=82) {
-        return {imgSrc: "./images/heavy-rain.png", info: "Rain"}
-    }  else if(weatherCode === 85 || weatherCode === 86) {
-        return {imgSrc: "./images/snowy.png", info: "Snow"}
-    }  else {
-        return {imgSrc: "./images/thunderstoms.png", info: "Thunderstorms"}
+        return { imgSrc: "./images/drizzle.png", info: "Drizzle" }
+    } else if (weatherCode >= 61 && weatherCode <= 67) {
+        return { imgSrc: "./images/drizzle.png", info: "Rain" }
+    } else if (weatherCode >= 71 && weatherCode <= 77) {
+        return { imgSrc: "./images/snowy.png", info: "Snow" }
+    } else if (weatherCode >= 80 && weatherCode <= 82) {
+        return { imgSrc: "./images/heavy-rain.png", info: "Rain" }
+    } else if (weatherCode === 85 || weatherCode === 86) {
+        return { imgSrc: "./images/snowy.png", info: "Snow" }
+    } else {
+        return { imgSrc: "./images/thunderstoms.png", info: "Thunderstorms" }
     }
 }
 
 
 
 
-
+// Event listener when form is submitted to search for city
 weatherForm.addEventListener("submit", (event) => {
+    // Prevent Refresh
     event.preventDefault();
+
+    // Removed previous form data
+    while (weatherData.firstChild) {
+        weatherData.removeChild(weatherData.firstChild);
+    }
+
     // Getting location from the form
     const location = event.target.location.value;
 
     introContainer.classList.add("hidden");
 
     const fetchData = async () => {
-        // Fetching longitude and latitude to get location of city
         try {
+            // Fetching longitude and latitude to get location of city
             const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
+            // Verifying that location is found
             if (!locationRes.ok) {
                 throw new Error(locationRes.status);
             }
@@ -59,6 +71,7 @@ weatherForm.addEventListener("submit", (event) => {
             const latitude = locationData.results[0].latitude;
             console.log(longitude, latitude);
 
+            // Fetching weather information on location
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,wind_gusts_10m,weather_code,is_day,apparent_temperature,wind_speed_10m,wind_direction_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
@@ -71,9 +84,10 @@ weatherForm.addEventListener("submit", (event) => {
             weatherData.appendChild(weatherLocation);
 
             // Getting weather logo and information using getWeatherIcon Function
-           const weatherIcon = getWeatherIcon(weatherInfo.daily.weather_code[0]);
-            console.log(weatherIcon);
-            
+            const weatherCode = weatherInfo.current.weather_code;
+            const isDay = weatherInfo.current.is_day;
+            const weatherIcon = getWeatherIcon(weatherCode, isDay);
+
             // Appending weatherIcon to weatherData container
             const weatherImg = document.createElement("img");
             weatherImg.src = weatherIcon.imgSrc;

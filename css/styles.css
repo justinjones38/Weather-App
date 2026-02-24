@@ -115,6 +115,7 @@ header {
 
 .form-button {
     width: 10%;
+    border-radius: 6px;
 }
 
 .form-button:hover,
@@ -147,6 +148,7 @@ header {
 .weather-data-container {
     width: 95%;
     margin: 1em auto;
+    line-height: 1.2;
 }
 
 .weather-data-img {
