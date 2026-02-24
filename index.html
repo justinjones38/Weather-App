@@ -20,29 +20,38 @@
         href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
         rel="stylesheet">
 
+    <!-- Adding Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/c7eb1ddbec.js" crossorigin="anonymous"></script>
+
 </head>
 
 <body>
     <header>
-        <p>Weather App</p>
-        <form class="weather-form">
-            <label for="location"></label>
-            <input type="text" placeholder="Please enter a city" name="location" id="location" class="form-input"
-                required>
-            <button type="submit" class="form-button">Enter</button>
-        </form>
+        <div class="header-logo-container">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="weather-logo">Weather App</p>
+        </div>
     </header>
 
     <main>
+        <form class="weather-form">
+            <div class="form-container">
+                <input type="text" placeholder="Please enter a city" name="location" id="location" class="form-input"
+                    aria-label="Search for a city to get weather" required>
+                <button type="submit" class="form-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+
+        <div class="weather-data-container"></div>
         <div class="intro-container">
-            <p class="intro-description">Thank you for visiting our site! Start by searching for a city to get updated
-                weather information</p>
+            <p class="intro-description">Thank you for visiting our site! <span>Search for a city to get updated
+                    weather information.</span> </p>
         </div>
     </main>
     <footer>
         <div class="footer-container">
             <p class="flaricon-credit">
-                Thanks to flaxicon for providing these weather icons for this app. 
+                Thanks to flaxicon for providing these weather icons for this app.
                 You can visit their site for other great images too.
             </p>
         </div>

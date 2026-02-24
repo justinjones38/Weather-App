@@ -13,8 +13,14 @@ RESET
 /* ======================================================
 CSS VARIABLES
 =========================================================*/
-
-
+:root {
+    /* Font Colors */
+    --primary-font-color: #fcfcfc;
+    --search-bg-color: #EBEBEB;
+    --description-font: #E4E4E7;
+    --footer-bg-color: #061232;
+    --text-opacity: 80%;
+}
 
 /* ======================================================
 BASE STYLES
@@ -22,24 +28,155 @@ BASE STYLES
 body {
     line-height: 1.6;
     font-family: Inter, sans-serif;
+    background-image: linear-gradient(90deg, #0B2265 30%, #0D2673 60%, #0B2265 85%);
+    color: var(--primary-font-color);
+}
+
+input {
+    font-family: inherit;
+    appearance: none;
+}
+
+img {
+    max-width: 100%;
+}
+
+button:hover {
+    cursor: pointer;
 }
 
 
 /* ======================================================
 TYPGRAPHY
 =========================================================*/
+h1 {
+    font-size: 1.1rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+    opacity: var(--text-opacity);
+    text-align: center;
+}
+
+
 
 /* ======================================================
 LAYOUT
 =========================================================*/
+/* ------ HEADER -------- */
+header {
+    margin-bottom: 0.5em;
+}
+
+.header-logo-container {
+    display: flex;
+    align-items: center;
+    margin: 0.25em 0 0 0.25em;
+    gap: 0.25em
+}
+
+.weather-logo {
+    font-size: 1.4rem;
+    font-weight: 700;
+}
+
+/* ----- WEATHER FORM ------------- */
+
+.form-container {
+    display: flex;
+    background-color: var(--search-bg-color);
+    width: 90%;
+    max-width: 425px;
+    margin: 0 auto;
+    min-height: 35px;
+    border-radius: 6px;
+}
+
+.form-input {
+    width: 90%;
+    padding: 0.4em;
+}
+
+
+.form-input,
+.form-button {
+    background-color: transparent;
+    border: none;
+    font-size: 1.2rem;
+}
+
+.form-input:focus,
+.form-button:focus {
+    border: none;
+    outline: none;
+}
+
+.form-button {
+    width: 10%;
+}
+
+.form-button:hover,
+.form-button:focus {
+    background-color: gray;
+}
+
+/* ---------- DESCRIPTION -----------*/
+.intro-container {
+    max-width: 800px;
+    width: 90%;
+    min-height: 60vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    margin-bottom: 20vh;
+}
+
+.intro-description {
+    font-size: 1.2rem;
+    font-weight: 500;
+    color: var(--description-font);
+    opacity: var(--text-opacity);
+    text-align: center;
+    margin: auto;
+}
+
+
+/* ---------- WEATHER DATA -----------*/
+.weather-data-container {
+    width: 95%;
+    margin: 1em auto;
+}
+
+
+/* --------- FOOTER -------------- */
+
+footer {
+    width: 95%;
+    max-width: 700px;
+    margin: 0 auto;
+}
+
+.flaricon-credit {
+    font-size: 0.8rem;
+    opacity: var(--text-opacity)
+}
+
 
 /* ======================================================
 COMPONENTS
 =========================================================*/
 
+
+
 /* ======================================================
 UTILITIES
 =========================================================*/
+.hidden {
+    display: none;
+}
+
+.visible {
+    display: block;
+}
 
 /* ======================================================
 MEDIA QUERIES
