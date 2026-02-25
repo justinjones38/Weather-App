@@ -15,7 +15,7 @@ const getWeatherIcon = (weatherCode, dayTime) => {
     if (weatherCode === 0 && dayTime) {
         return { imgSrc: "./images/sun.png", info: "Clear Skies" }
     } else if (weatherCode === 0 && !dayTime) {
-        return { imgSrc: "./images/moon.png,", info: "Clear Skies" }
+        return { imgSrc: "./images/moon.png", info: "Clear Skies" }
     } else if (weatherCode >= 1 && weatherCode <= 3 && dayTime) {
         return { imgSrc: "./images/cloudy.png", info: "Partly Cloudy" }
     } else if (weatherCode >= 1 && weatherCode <= 3 && !dayTime) {
@@ -45,7 +45,7 @@ weatherForm.addEventListener("submit", (event) => {
     // Prevent Refresh
     event.preventDefault();
 
-    // Removed previous form data
+    // Removed weather data
     while (weatherData.firstChild) {
         weatherData.removeChild(weatherData.firstChild);
     }
@@ -53,8 +53,10 @@ weatherForm.addEventListener("submit", (event) => {
     // Getting location from the form
     const location = event.target.location.value;
 
+    // Hides the intro description
     introContainer.classList.add("hidden");
 
+    // Fetching data from the API
     const fetchData = async () => {
         try {
             // Fetching longitude and latitude to get location of city
@@ -66,29 +68,32 @@ weatherForm.addEventListener("submit", (event) => {
             const locationData = await locationRes.json();
             console.log(locationData);
 
-            // Getting the longitude and latitude 
+            // Getting the longitude and latitude from locationData
             const longitude = locationData.results[0].longitude;
             const latitude = locationData.results[0].latitude;
             console.log(longitude, latitude);
 
-            // Fetching weather information on location
+            // Fetching weather information on location using latitude and longitude
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,wind_gusts_10m,weather_code,is_day,apparent_temperature,wind_speed_10m,wind_direction_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
             const weatherInfo = await weatherRes.json();
-            // Getting location
+
+            // Creating weatherLocation element and appending it to the weatherData container
             const weatherLocation = document.createElement("h1");
             weatherLocation.className = "weather-location";
             weatherLocation.textContent = location;
             weatherData.appendChild(weatherLocation);
 
-            // Getting weather logo and information using getWeatherIcon Function
+            // Getting weatherCode and isDay to use as parameters in the getWeatherIcon
             const weatherCode = weatherInfo.current.weather_code;
             const isDay = weatherInfo.current.is_day;
+
+            // Getting weatherIcon and information using the getWeatherIcon Function
             const weatherIcon = getWeatherIcon(weatherCode, isDay);
 
-            // Appending weatherIcon to weatherData container
+            // Creating weatherImg element and appending it to the weatherData container
             const weatherImg = document.createElement("img");
             weatherImg.src = weatherIcon.imgSrc;
             weatherImg.className = "weather-data-img";
@@ -96,13 +101,13 @@ weatherForm.addEventListener("submit", (event) => {
             weatherData.appendChild(weatherImg);
             console.log(weatherImg);
 
-            // Getting temperature and appending it to weatherContainer
+            // Creating temperature element and appending it to weatherContainer
             const temperature = document.createElement("p");
             temperature.className = "weather-data-temperature";
             temperature.textContent = `${Math.round(weatherInfo.current.temperature_2m)}${weatherInfo.current_units.temperature_2m}`;
             weatherData.appendChild(temperature);
 
-            // Creating container to hold max/min temperature and appending it to weatherData container
+            // Creating container to hold high/low temperature and appending it to weatherData container
             const temperatureContainer = document.createElement("div");
             temperatureContainer.className = "temperature-container";
             weatherData.appendChild(temperatureContainer);
@@ -125,6 +130,11 @@ weatherForm.addEventListener("submit", (event) => {
             weatherCondition.className = "weather-data-condition";
             weatherCondition.textContent = weatherIcon.info;
             weatherData.appendChild(weatherCondition);
+
+            // Creating weatherContainerStats to hold more intricate weather data 
+            const weatherContainerStats = document.createElement("div");
+            weatherContainerStats.className = "weather-data-stats";
+            weatherData.appendChild(weatherContainerStats);            
 
         } catch (error) {
             console.error(error);
