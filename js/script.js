@@ -74,7 +74,7 @@ weatherForm.addEventListener("submit", (event) => {
             console.log(longitude, latitude);
 
             // Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,sunrise,apparent_temperature_max,apparent_temperature_min,precipitation_probability_max&hourly=temperature_2m,weather_code&current=temperature_2m,relative_humidity_2m,wind_gusts_10m,weather_code,is_day,apparent_temperature,wind_speed_10m,wind_direction_10m&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,precipitation_probability_max&hourly=temperature_2m,weather_code,precipitation_probability,is_day,relative_humidity_2m,dew_point_2m,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&current=temperature_2m,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,relative_humidity_2m,apparent_temperature,cloud_cover&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
@@ -107,19 +107,19 @@ weatherForm.addEventListener("submit", (event) => {
             temperature.textContent = `${Math.round(weatherInfo.current.temperature_2m)}${weatherInfo.current_units.temperature_2m}`;
             weatherData.appendChild(temperature);
 
-            // Creating container to hold high/low temperature and appending it to weatherData container
+            // Creating temperatureContainer to hold high/low temperature and appending it to weatherData container
             const temperatureContainer = document.createElement("div");
             temperatureContainer.className = "temperature-container";
             weatherData.appendChild(temperatureContainer);
 
-            // Creating high temperature element and append it to weather container
+            // Creating high temperature element and append it to temperatureContainer
             const highTemperature = document.createElement("p");
             highTemperature.className = "weather-data-min-max";
             highTemperature.textContent = `H:${Math.round(weatherInfo.daily.temperature_2m_max[0])}${weatherInfo.current_units.temperature_2m}`;
             temperatureContainer.appendChild(highTemperature);
 
 
-            // Getting low temperature and append it to weather container
+            // Getting low temperature and append it to temperautreContainer
             const lowTemperature = document.createElement("p");
             lowTemperature.className = "weather-data-min-max";
             lowTemperature.textContent = `L:${Math.round(weatherInfo.daily.temperature_2m_min[0])}${weatherInfo.current_units.temperature_2m}`;
@@ -132,9 +132,55 @@ weatherForm.addEventListener("submit", (event) => {
             weatherData.appendChild(weatherCondition);
 
             // Creating weatherContainerStats to hold more intricate weather data 
-            const weatherContainerStats = document.createElement("div");
+            const weatherContainerStats = document.createElement("ul");
             weatherContainerStats.className = "weather-data-stats";
-            weatherData.appendChild(weatherContainerStats);            
+            weatherData.appendChild(weatherContainerStats);
+            
+            // Create windSpeed element and appending it to WeatherContainerStatsList - need to add wind direction later
+            const windSpeed = document.createElement("li");
+            windSpeed.className = "weather-data-stats-item";
+            windSpeed.textContent = `Wind Speed: `;
+            const windSpeedVal = document.createElement("span")
+            windSpeedVal.textContent = `${Math.round(weatherInfo.current.wind_speed_10m)}${weatherInfo.current_units.wind_speed_10m}`
+            windSpeed.appendChild(windSpeedVal);
+            weatherContainerStats.appendChild(windSpeed);
+
+            // Create windGust element and appending it to WeatherContainerStatsList
+            const windGusts = document.createElement("li");
+            windGusts.className = "weather-data-stats-item";
+            windGusts.textContent = `Wind Gusts: `;
+            const windGustsVal = document.createElement("span");
+            windGustsVal.textContent = `${Math.round(weatherInfo.current.wind_gusts_10m)}${weatherInfo.current_units.wind_gusts_10m}`;
+            windGusts.appendChild(windGustsVal);
+            weatherContainerStats.appendChild(windGusts);
+
+            // Creating apparentTemperature element and appending it to weatherContainerStats list
+            const apparentTemperature = document.createElement("li");
+            apparentTemperature.className = "weather-data-stats-item";
+            apparentTemperature.textContent = `Feels like temperature: `;
+            const apparentTemperatureVal = document.createElement("span");
+            apparentTemperatureVal.textContent = `${Math.round(weatherInfo.current.apparent_temperature)}${weatherInfo.current_units.apparent_temperature}`
+            apparentTemperature.appendChild(apparentTemperatureVal);
+            weatherContainerStats.appendChild(apparentTemperature);
+
+            // Creating relativeHumidity element and appending it to weatherContainerStats list
+            const relativeHumidity = document.createElement("li");
+            relativeHumidity.className = "weather-data-stats-item";
+            relativeHumidity.textContent = `Relative Humidity: `;
+            const relativeHumidityVal = document.createElement("span");
+            relativeHumidityVal.textContent = `${weatherInfo.current.relative_humidity_2m}${weatherInfo.current_units.relative_humidity_2m}`;
+            relativeHumidity.appendChild(relativeHumidityVal);
+            weatherContainerStats.appendChild(relativeHumidity);
+
+            // Creating cloudCover element and appending it to weatherContainerStats list
+            const cloudCover = document.createElement("li");
+            cloudCover.className = "weather-data-stats-item";
+            cloudCover.textContent = `Cloud Cover: `;
+            const cloudCoverVal = document.createElement("span");
+            cloudCoverVal.textContent = `${weatherInfo.current.cloud_cover}${weatherInfo.current_units.cloud_cover}`
+            cloudCover.appendChild(cloudCoverVal);
+            weatherContainerStats.appendChild(cloudCover);
+            console.log(cloudCover);
 
         } catch (error) {
             console.error(error);

@@ -32,6 +32,10 @@ body {
     color: var(--primary-font-color);
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 input {
     font-family: inherit;
     appearance: none;
@@ -42,10 +46,14 @@ img {
     display: block;
 }
 
-button:hover {
-    cursor: pointer;
+ul, li {
+   list-style-type: none; 
 }
 
+li {
+    margin: 0;
+    padding: 0;
+}
 
 /* ======================================================
 TYPGRAPHY
@@ -171,7 +179,28 @@ header {
 .weather-data-condition {
     text-align: center;
     opacity: var(--text-opacity);
+    margin-bottom: 1.5em;
 }
+
+.weather-data-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 85%;
+    max-width: 400px;
+    margin: 0 auto;
+    row-gap: 0.5em;
+}
+
+.weather-data-stats-item {
+    display: flex;
+    border-bottom: 1px solid var(--primary-font-color);
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    gap: 1em;
+}
+
+
 
 /* --------- FOOTER -------------- */
 
