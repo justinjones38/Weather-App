@@ -9,9 +9,6 @@ const weatherData = document.querySelector(".weather-data-container");
 const introContainer = document.querySelector(".intro-container");
 
 
-
-
-
 // Function to return weather icons 
 const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
     if (weatherCode === 0 && dayTime) {
@@ -40,6 +37,19 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
 }
 
 
+// Button to reset document by closing weatherDataContainer and opening introDescriptionContainer
+// Selecting button via documentQuerySelector
+const headerButton = document.querySelector(".header-button");
+headerButton.addEventListener("click", () => {
+    // Removed weather data
+    while (weatherData.firstChild) {
+        weatherData.removeChild(weatherData.firstChild);
+    }
+
+    // Hides the intro description
+    introContainer.classList.remove("hidden");
+})
+
 
 
 // Event listener when form is submitted to search for city
@@ -52,11 +62,13 @@ weatherForm.addEventListener("submit", (event) => {
         weatherData.removeChild(weatherData.firstChild);
     }
 
+    // Hides the intro description
+    introContainer.classList.add("hidden");
+
     // Getting location from the form
     const location = event.target.location.value;
 
-    // Hides the intro description
-    introContainer.classList.add("hidden");
+
 
     // Fetching data from the API
     const fetchData = async () => {
@@ -76,7 +88,7 @@ weatherForm.addEventListener("submit", (event) => {
             console.log(longitude, latitude);
 
             // Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_min,temperature_2m_max,precipitation_probability_max&hourly=temperature_2m,weather_code,precipitation_probability,is_day,relative_humidity_2m,dew_point_2m,visibility,wind_speed_10m,wind_direction_10m,wind_gusts_10m,precipitation&current=temperature_2m,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,relative_humidity_2m,apparent_temperature,cloud_cover&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch&forecast_hours=6&past_hours=1`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
@@ -281,7 +293,7 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Getting weatherIcon by getWeatherIcon function
                 const weatherIconElement = getWeatherIcon(weatherInfo.daily.weather_code[index]);
-                
+
                 // Creating descriptionElement to hold weatherIconImg and info and appending it to table row data
                 const descriptionElement = document.createElement("td");
                 descriptionElement.className = "description-column";
@@ -304,7 +316,7 @@ weatherForm.addEventListener("submit", (event) => {
                 // Creating precipitationContainer and appending it to table row data
                 const precipitationElement = document.createElement("td");
                 precipitationElement.className = "precipitation-column";
-                precipitationElement.textContent =`${weatherInfo.daily.precipitation_probability_max[index]}%`;
+                precipitationElement.textContent = `${weatherInfo.daily.precipitation_probability_max[index]}%`;
                 tableRowData.appendChild(precipitationElement);
 
 

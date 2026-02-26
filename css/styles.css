@@ -19,6 +19,9 @@ CSS VARIABLES
     --search-bg-color: #EBEBEB;
     --description-font: #E4E4E7;
     --footer-bg-color: #061232;
+    --form-hover-color: #303133;
+
+    /* Opacity */
     --text-opacity: 80%;
 }
 
@@ -90,7 +93,15 @@ header {
     display: flex;
     align-items: center;
     margin: 0.25em 0 0 0.25em;
-    gap: 0.25em
+    gap: 0.25em;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+}
+
+.header-logo-container:focus,
+.header-logo-container:hover {
+    border-bottom: 1px solid var(--primary-font-color);
 }
 
 .weather-logo {
@@ -136,7 +147,7 @@ header {
 
 .form-button:hover,
 .form-button:focus {
-    background-color: gray;
+    background-color: var(--form-hover-color);
 }
 
 /* ---------- DESCRIPTION -----------*/
@@ -215,6 +226,7 @@ header {
     margin: 0 auto;
     width: 100%;
     text-align: center;
+    font-size: 0.8rem;
 }
 
 .date-column, .temperature-column, .description-column, .precipitation-column {
@@ -222,7 +234,7 @@ header {
 }
 
 .date-column {
-    width: 20%;
+    width: 10%;
 }
 
 .temperature-column {
@@ -231,6 +243,10 @@ header {
 
 .description-column {
     width: 30%;
+}
+
+.precipitation-column {
+    width: 15%;
 }
 
 .weather-table-icon{
