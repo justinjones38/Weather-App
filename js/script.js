@@ -10,8 +10,10 @@ const introContainer = document.querySelector(".intro-container");
 
 
 
+
+
 // Function to return weather icons 
-const getWeatherIcon = (weatherCode, dayTime) => {
+const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
     if (weatherCode === 0 && dayTime) {
         return { imgSrc: "./images/sun.png", info: "Clear Skies" }
     } else if (weatherCode === 0 && !dayTime) {
@@ -135,7 +137,7 @@ weatherForm.addEventListener("submit", (event) => {
             const weatherContainerStats = document.createElement("ul");
             weatherContainerStats.className = "weather-data-stats";
             weatherData.appendChild(weatherContainerStats);
-            
+
             // Create windSpeed element and appending it to WeatherContainerStatsList - need to add wind direction later
             const windSpeed = document.createElement("li");
             windSpeed.className = "weather-data-stats-item";
@@ -180,7 +182,133 @@ weatherForm.addEventListener("submit", (event) => {
             cloudCoverVal.textContent = `${weatherInfo.current.cloud_cover}${weatherInfo.current_units.cloud_cover}`
             cloudCover.appendChild(cloudCoverVal);
             weatherContainerStats.appendChild(cloudCover);
-            console.log(cloudCover);
+
+            // Creating hourly forecast container and appending it to weatherData container
+            const hourlyForecastContainer = document.createElement("section");
+            hourlyForecastContainer.className = "hourly-weather-container";
+            weatherData.appendChild(hourlyForecastContainer);
+
+            // Creating hourly forecast header and appending it to hourlyForecastContainer
+            const hourlyForecastHeader = document.createElement("h2");
+            hourlyForecastHeader.className = "section-title";
+            hourlyForecastHeader.textContent = "Hourly Forecast";
+            hourlyForecastContainer.appendChild(hourlyForecastHeader);
+
+
+
+            // Creating daily forecast container and appending to weatherData container
+            const dailyForecastContainer = document.createElement("section");
+            dailyForecastContainer.className = "daily-forecast-container";
+            weatherData.appendChild(dailyForecastContainer);
+
+            // Creating daily forecast header and appending it to dailyForecast Container
+            const dailyForecastHeader = document.createElement("h2");
+            dailyForecastHeader.className = "section-title";
+            dailyForecastHeader.textContent = "7 day Forecast";
+            dailyForecastContainer.appendChild(dailyForecastHeader);
+
+            // Creating table to holder daily forecast and appending it to dailyForecastContainer
+            let dailyForecastTable = document.createElement("table");
+            dailyForecastTable.className = "daily-forecast-table";
+            dailyForecastContainer.appendChild(dailyForecastTable);
+
+            // Creating table row for table headers
+            const tableRowHeader = document.createElement("tr");
+            tableRowHeader.className = "table-row table-header";
+            dailyForecastTable.appendChild(tableRowHeader);
+
+            // Creating data table header element and appending it to table row
+            const dateTableHeader = document.createElement("th");
+            dateTableHeader.className = "date-column";
+            dateTableHeader.textContent = "Date";
+            tableRowHeader.appendChild(dateTableHeader);
+
+
+            // Creating temperature table header element and appending it to table row
+            const temperatureTableHeader = document.createElement("th");
+            temperatureTableHeader.className = "temperature-column";
+            temperatureTableHeader.textContent = "Temperature";
+            tableRowHeader.appendChild(temperatureTableHeader);
+
+            // Creating data table header element and appending it to table row
+            const descriptionTableHeader = document.createElement("th");
+            descriptionTableHeader.className = "description-column";
+            descriptionTableHeader.textContent = "Description";
+            tableRowHeader.appendChild(descriptionTableHeader);
+
+            // Creating data table header element and appending it to table row
+            const precipitationTableHeader = document.createElement("th");
+            precipitationTableHeader.className = "precipitation-column";
+            precipitationTableHeader.textContent = "Chance of Precipitation";
+            tableRowHeader.appendChild(precipitationTableHeader);
+
+
+            let length = weatherInfo.daily.time.length;
+            for (let index = 0; index < length; index++) {
+
+                // Creating table row for each table value
+                const tableRowData = document.createElement("tr");
+                tableRowData.className = "table-row table-val";
+                dailyForecastTable.appendChild(tableRowData);
+
+
+                // Creating date element and appending it to dailyForecastTable
+                const date = new Date(weatherInfo.daily.time[index]);
+                const weatherDate = `${date.getUTCMonth() + 1}/${date.getUTCDate()}`;
+                const weatherDateElement = document.createElement("td");
+                weatherDateElement.className = "date-column";
+                weatherDateElement.textContent = weatherDate;
+                tableRowData.appendChild(weatherDateElement);
+
+                // Creating temperature element
+                const temperatureElement = document.createElement("td");
+                temperatureElement.className = "temperature-column";
+
+                // Creating span to bold highTemperature and appending to temperatureElement
+                const highTemeratureContainer = document.createElement("span");
+                highTemeratureContainer.className = "high-temperature-container"
+                highTemeratureContainer.textContent = Math.round(weatherInfo.daily.temperature_2m_max[index]);
+                temperatureElement.appendChild(highTemeratureContainer);
+
+                // Creating span to bold highTemperature and appending to temperatureElement
+                const lowTemeratureContainer = document.createElement("span");
+                lowTemeratureContainer.className = "low-temperature-container"
+                lowTemeratureContainer.textContent = Math.round(weatherInfo.daily.temperature_2m_min[index]);
+                temperatureElement.appendChild(lowTemeratureContainer);
+
+                // Appending the temperature element to dailyForecastTable
+                tableRowData.appendChild(temperatureElement);
+
+                // Getting weatherIcon by getWeatherIcon function
+                const weatherIconElement = getWeatherIcon(weatherInfo.daily.weather_code[index]);
+                
+                // Creating descriptionElement to hold weatherIconImg and info and appending it to table row data
+                const descriptionElement = document.createElement("td");
+                descriptionElement.className = "description-column";
+                tableRowData.appendChild(descriptionElement);
+
+                // Creating imageContainer to hold weatherIconElementImg and appending it to descriptionElement
+                const weatherIconElementImg = document.createElement("img");
+                weatherIconElementImg.className = "weather-table-icon"
+                weatherIconElementImg.src = weatherIconElement.imgSrc;
+                weatherIconElementImg.alt = weatherIconElement.info;
+                weatherIconElementImg.width = "50"
+                descriptionElement.appendChild(weatherIconElementImg)
+
+                // Creating imageContainer to hold weatherIconElementImg and appending it to descriptionElement 
+                const weatherIconElementInfo = document.createElement("p");
+                weatherIconElementInfo.className = "weather-table-info";
+                weatherIconElementInfo.textContent = weatherIconElement.info;
+                descriptionElement.appendChild(weatherIconElementInfo);
+
+                // Creating precipitationContainer and appending it to table row data
+                const precipitationElement = document.createElement("td");
+                precipitationElement.className = "precipitation-column";
+                precipitationElement.textContent =`${weatherInfo.daily.precipitation_probability_max[index]}%`;
+                tableRowData.appendChild(precipitationElement);
+
+
+            }
 
         } catch (error) {
             console.error(error);
