@@ -36,6 +36,16 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
     }
 }
 
+const getStandardTime = (hour) => {
+    if(hour === 0) {
+        return `12am`
+    } else if (hour > 0 && hour < 13) {
+        return `${hour}am`;
+    } else {
+        return `${hour%12}pm`;
+    }
+}
+
 
 // Button to reset document by closing weatherDataContainer and opening introDescriptionContainer
 // Selecting button via documentQuerySelector
@@ -195,9 +205,9 @@ weatherForm.addEventListener("submit", (event) => {
             cloudCover.appendChild(cloudCoverVal);
             weatherContainerStats.appendChild(cloudCover);
 
-            // Creating hourly forecast container and appending it to weatherData container
+            // Creating hourly forecast section and appending it to weatherData container
             const hourlyForecastContainer = document.createElement("section");
-            hourlyForecastContainer.className = "hourly-weather-container";
+            hourlyForecastContainer.className = "hourly-weather-section";
             weatherData.appendChild(hourlyForecastContainer);
 
             // Creating hourly forecast header and appending it to hourlyForecastContainer
@@ -205,6 +215,52 @@ weatherForm.addEventListener("submit", (event) => {
             hourlyForecastHeader.className = "section-title";
             hourlyForecastHeader.textContent = "Hourly Forecast";
             hourlyForecastContainer.appendChild(hourlyForecastHeader);
+
+            // Getting length of time array 
+            let hourlyLength = weatherInfo.hourly.time.length;
+
+            // Creating hourlyForecastList to hold hourly forecast and appending it to hourlyForecastContainer
+            const hourlyForecastList = document.createElement("ul");
+            hourlyForecastList.className = "hourly-forecast-list";
+            hourlyForecastContainer.appendChild(hourlyForecastList);
+
+
+            for (let index = 1; index < hourlyLength; index++) {
+                // Creating hourlyForecastListItem and appending it to hourlyForecastList
+                const hourlyForecastListItem = document.createElement("li");
+                hourlyForecastListItem.className = "hourly-forecast-list-item";
+                hourlyForecastList.appendChild(hourlyForecastListItem);
+
+                // Getting hourly weatherIcon from getWeatherIcon() function
+                const hourlyWeatherIcon = getWeatherIcon(weatherInfo.hourly.weather_code[index], weatherInfo.hourly.is_day[index]);
+
+                // Creating hourlyForecastListItemIcon and appending it to hourlyForecastListItem
+                const hourlyForecastListItemIcon = document.createElement("img");
+                hourlyForecastListItemIcon.className = "hourly-forecast-list-item-img";
+                hourlyForecastListItemIcon.src = hourlyWeatherIcon.imgSrc;
+                hourlyForecastListItemIcon.alt = hourlyWeatherIcon.info;
+                hourlyForecastListItemIcon.width = "50"
+                hourlyForecastListItem.appendChild(hourlyForecastListItemIcon);
+
+                // Creating hourlyForecastListItemTemp and appending it to hourlyForecastListItem
+                const hourlyForecastListItemTemp = document.createElement("p");
+                hourlyForecastListItemTemp.className = "hourly-forecast-list-item-temp";
+                hourlyForecastListItemTemp.textContent = `${Math.round(weatherInfo.hourly.temperature_2m[index])}${(weatherInfo.hourly_units.temperature_2m)}`;
+                hourlyForecastListItem.appendChild(hourlyForecastListItemTemp);
+
+                // Creating hourlyForecastListItemPrecip and appending it to hourlyForecastListItem
+                const hourlyForecastListItemPrecip = document.createElement("p");
+                hourlyForecastListItemPrecip.className = "hourly-forecast-list-item-precip";
+                hourlyForecastListItemPrecip.textContent = `Precip: ${Math.round(weatherInfo.hourly.precipitation_probability[index])}${(weatherInfo.hourly_units.precipitation_probability)}`;
+                hourlyForecastListItem.appendChild(hourlyForecastListItemPrecip);
+
+                // Creating hourlyForecastListItemPrecip and appending it to hourlyForecastListItem
+                const hourlyForecastListItemTime = document.createElement("p");
+                hourlyForecastListItemTime.className = "hourly-forecast-list-item-time";
+                const currentHour = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
+                hourlyForecastListItemTime.textContent = `${currentHour}`;
+                hourlyForecastListItem.appendChild(hourlyForecastListItemTime);
+            }
 
 
 
@@ -304,7 +360,6 @@ weatherForm.addEventListener("submit", (event) => {
                 weatherIconElementImg.className = "weather-table-icon"
                 weatherIconElementImg.src = weatherIconElement.imgSrc;
                 weatherIconElementImg.alt = weatherIconElement.info;
-                weatherIconElementImg.width = "50"
                 descriptionElement.appendChild(weatherIconElementImg)
 
                 // Creating imageContainer to hold weatherIconElementImg and appending it to descriptionElement 

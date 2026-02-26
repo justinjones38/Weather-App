@@ -76,7 +76,7 @@ h1 {
 
 h2 {
     font-size: 1.1rem;
-    margin-bottom: 1em;
+    margin-bottom: 0.3em;
 }
 
 
@@ -220,6 +220,16 @@ header {
     gap: 1em;
 }
 
+/* ---------- HOURLY FORECAST ----------- */
+.hourly-forecast-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 1.5em;
+    margin-bottom: 2em;
+    font-size: 0.8rem;
+}
+
 /* ---------- 7 DAY FORECAST ----------- */
 .daily-forecast-table {
     max-width: 1000px;
@@ -251,6 +261,9 @@ header {
 
 .weather-table-icon{
     margin: 0 auto;
+    width: 20%;
+    max-width: 75px;
+    min-width: 50px;
 }
 
 .high-temperature-container::after {
