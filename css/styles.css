@@ -22,6 +22,7 @@ CSS VARIABLES
     --form-hover-color: #303133;
     --footer-link-color: #D6D6D6;
     --logo-hover-color: #919296;
+    --red-error-color: #FAE0E0;
 
     /* Opacity */
     --text-opacity: 80%;
@@ -153,6 +154,15 @@ header {
     background-color: var(--form-hover-color);
 }
 
+/* ---------- FETCH ERROR -----------*/
+.fetch-error-container {
+    color: var(--red-error-color);
+    width: 90%;
+    max-width: 600px;
+    font-size: 1.2rem;
+    margin: 1em auto 0 auto;
+}
+
 /* ---------- DESCRIPTION -----------*/
 .intro-container {
     max-width: 800px;
@@ -237,6 +247,7 @@ header {
     padding: 0.5em 1em;
     border-radius: 8px;
     opacity: 1;
+    font-size: 1rem;
 }
 
 .btn-unit:hover {

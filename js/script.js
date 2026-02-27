@@ -8,6 +8,9 @@ const weatherData = document.querySelector(".weather-data-container");
 // Getting introContainer to hide welcoming text when seearching for city
 const introContainer = document.querySelector(".intro-container");
 
+// Creating fetchErrorContainer to hold error in searching
+const fetchErrorContainer = document.querySelector(".fetch-error-container");
+
 // Getting footer to change position of footer to static when form submitted
 const footer = document.querySelector("footer");
 
@@ -94,6 +97,11 @@ weatherForm.addEventListener("submit", (event) => {
         weatherData.removeChild(weatherData.firstChild);
     }
 
+    // Removing previous fetchErrorContainer
+    while (fetchErrorContainer.firstChild) {
+        fetchErrorContainer.removeChild(fetchErrorContainer.firstChild)
+    }
+
     // Hides the intro description
     introContainer.classList.add("hidden");
 
@@ -135,6 +143,7 @@ weatherForm.addEventListener("submit", (event) => {
                 throw new Error(weatherRes.status);
             }
             const weatherInfo = await weatherRes.json();
+
 
             // Creating weatherLocation element and appending it to the weatherData container
             const weatherLocation = document.createElement("h1");
@@ -474,6 +483,12 @@ weatherForm.addEventListener("submit", (event) => {
             }
 
         } catch (error) {
+
+            const fetchErrorElement = document.createElement("p");
+
+            fetchErrorElement.className = "fetch-error-element";
+            fetchErrorElement.textContent = `Cannot fetch your data for your selected city, please try again`
+            fetchErrorContainer.appendChild(fetchErrorElement);
             console.error(error);
             return;
         }
