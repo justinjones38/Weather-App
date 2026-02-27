@@ -102,6 +102,9 @@ weatherForm.addEventListener("submit", (event) => {
         fetchErrorContainer.removeChild(fetchErrorContainer.firstChild)
     }
 
+    // Removes static classList to keep footer fixed to bottom
+    footer.classList.remove("static");
+
     // Hides the intro description
     introContainer.classList.add("hidden");
 
@@ -484,11 +487,13 @@ weatherForm.addEventListener("submit", (event) => {
 
         } catch (error) {
 
+            // Creating fetchErrorElement and appending it to fetchErrorContainer to notify users of error when fetching data
             const fetchErrorElement = document.createElement("p");
-
             fetchErrorElement.className = "fetch-error-element";
             fetchErrorElement.textContent = `Cannot fetch your data for your selected city, please try again`
             fetchErrorContainer.appendChild(fetchErrorElement);
+
+
             console.error(error);
             return;
         }
