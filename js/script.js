@@ -45,7 +45,7 @@ const getStandardTime = (hour) => {
         return `${hour}am`;
     } else if (hour === 12) {
         return `${hour}pm`
-    } 
+    }
     else {
         return `${hour % 12}pm`;
     }
@@ -55,6 +55,7 @@ const getDayOfWeek = (val) => {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return daysOfWeek[val];
 }
+
 
 
 // Button to reset document by closing weatherDataContainer and opening introDescriptionContainer
@@ -75,6 +76,7 @@ headerButton.addEventListener("click", () => {
 
 
 
+
 // Event listener when form is submitted to search for city
 weatherForm.addEventListener("submit", (event) => {
     // Prevent Refresh
@@ -88,13 +90,25 @@ weatherForm.addEventListener("submit", (event) => {
     // Hides the intro description
     introContainer.classList.add("hidden");
 
+    // Creating button to control when imperial units are shown
+    const imperialButton = document.createElement("button");
+    imperialButton.className = "btn-unit";
+    imperialButton.textContent = "Imperial Units";
+    imperialButton.disabled = true;
+    // Creating button to control when metric units are shown
+    const metricButton = document.createElement("button");
+    metricButton.className = "btn-unit";
+    metricButton.textContent = "Metric Units";
+
+
     // Getting location from the form
-    const location = event.target.location.value;
+    const location = event.target.location.value.trim();
+
 
 
 
     // Fetching data from the API
-    const fetchData = async () => {
+    const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
         try {
             // Fetching longitude and latitude to get location of city
             const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
@@ -111,7 +125,7 @@ weatherForm.addEventListener("submit", (event) => {
             console.log(longitude, latitude);
 
             // Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto&wind_speed_unit=mph&temperature_unit=fahrenheit&precipitation_unit=inch&forecast_hours=6&past_hours=1`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=6&past_hours=1`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
@@ -218,6 +232,61 @@ weatherForm.addEventListener("submit", (event) => {
             cloudCover.appendChild(cloudCoverVal);
             weatherContainerStats.appendChild(cloudCover);
 
+            // Creating a buttonContainer to hold buttons to convert between imperial and metric system
+            const buttonContainerUnitSystem = document.createElement("div");
+            buttonContainerUnitSystem.className = "button-container-unit-system";
+            weatherData.appendChild(buttonContainerUnitSystem);
+
+
+            // Appending imperialButton to the buttonContainerUnitSystem
+            buttonContainerUnitSystem.appendChild(imperialButton);
+
+            // Appending metricButton to the buttonContainerUnitSystem
+            buttonContainerUnitSystem.appendChild(metricButton);
+
+            // Add Event listener to metricButton to fetch the metric unit in fetch
+            imperialButton.addEventListener("click", () => {
+                // If imperialButton is disabled, then the button does not work
+                if (imperialButton.disabled) {
+                    console.log("done")
+                    return;
+                }
+                // Removed weather data
+                while (weatherData.firstChild) {
+                    weatherData.removeChild(weatherData.firstChild);
+                }
+
+                // Disabled imperialButton and enabled metricButton
+                imperialButton.disabled = true;
+                metricButton.disabled = false;
+
+                footer.classList.remove("static");
+                fetchData(location);
+            })
+
+
+            // Add Event listener to metricButton to fetch the metric unit in fetch
+            metricButton.addEventListener("click", () => {
+                // If metricButton is disabled, then the button does not work
+                if (metricButton.disabled) {
+                    console.log("done")
+                    return;
+                }
+                // Removed weather data
+                while (weatherData.firstChild) {
+                    weatherData.removeChild(weatherData.firstChild);
+                }
+
+                // Enables imperialButton and disabled metricButton
+                imperialButton.disabled = false;
+                metricButton.disabled = true;
+
+                footer.classList.remove("static");
+                fetchData(location, "", "", "");
+            })
+
+
+
             // Creating hourly forecast section and appending it to weatherData container
             const hourlyForecastContainer = document.createElement("section");
             hourlyForecastContainer.className = "hourly-weather-section";
@@ -273,7 +342,6 @@ weatherForm.addEventListener("submit", (event) => {
                 hourlyForecastListItemTime.textContent = `${currentHour}`;
                 hourlyForecastListItem.appendChild(hourlyForecastListItemTime);
             }
-
 
 
             // Creating daily forecast container and appending to weatherData container
@@ -399,6 +467,8 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Changing position of footer to static
                 footer.classList.add("static");
+                console.log(weatherInfo);
+                console.log(metricButton);
             }
 
         } catch (error) {
@@ -407,7 +477,7 @@ weatherForm.addEventListener("submit", (event) => {
         }
 
     }
-    fetchData();
+    fetchData(location);
     weatherForm.reset();
 })
 

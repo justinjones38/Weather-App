@@ -222,6 +222,28 @@ header {
     gap: 1em;
 }
 
+/* Unit System Button Container */
+.button-container-unit-system {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.btn-unit {
+    background-color: transparent;
+    border: 1px solid var(--primary-font-color);
+    color: var(--primary-font-color);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+
+.btn-unit:disabled {
+    opacity: 0.6;
+}
+
 /* ---------- HOURLY FORECAST ----------- */
 .hourly-forecast-list {
     display: grid;
