@@ -41,11 +41,19 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
 const getStandardTime = (hour) => {
     if (hour === 0) {
         return `12am`
-    } else if (hour > 0 && hour < 13) {
+    } else if (hour > 0 && hour < 12) {
         return `${hour}am`;
-    } else {
+    } else if (hour === 12) {
+        return `${hour}pm`
+    } 
+    else {
         return `${hour % 12}pm`;
     }
+}
+
+const getDayOfWeek = (val) => {
+    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    return daysOfWeek[val];
 }
 
 
@@ -292,26 +300,29 @@ weatherForm.addEventListener("submit", (event) => {
             // Creating data table header element and appending it to table row
             const dateTableHeader = document.createElement("th");
             dateTableHeader.className = "date-column";
-            dateTableHeader.textContent = "Date";
+            dateTableHeader.textContent = "DATE";
             tableRowHeader.appendChild(dateTableHeader);
 
 
             // Creating temperature table header element and appending it to table row
             const temperatureTableHeader = document.createElement("th");
             temperatureTableHeader.className = "temperature-column";
-            temperatureTableHeader.textContent = "Temperature";
+            temperatureTableHeader.textContent = "TEMP";
+            temperatureTableHeader.ariaLabel = "Temperature"
             tableRowHeader.appendChild(temperatureTableHeader);
 
             // Creating data table header element and appending it to table row
             const descriptionTableHeader = document.createElement("th");
             descriptionTableHeader.className = "description-column";
-            descriptionTableHeader.textContent = "Description";
+            descriptionTableHeader.textContent = "DESC";
+            descriptionTableHeader.ariaLabel = "Description";
             tableRowHeader.appendChild(descriptionTableHeader);
 
             // Creating data table header element and appending it to table row
             const precipitationTableHeader = document.createElement("th");
             precipitationTableHeader.className = "precipitation-column";
-            precipitationTableHeader.textContent = "Chance of Precipitation";
+            precipitationTableHeader.textContent = "PRECIP";
+            precipitationTableHeader.ariaLabel = "Precipitation";
             tableRowHeader.appendChild(precipitationTableHeader);
 
 
@@ -324,13 +335,21 @@ weatherForm.addEventListener("submit", (event) => {
                 dailyForecastTable.appendChild(tableRowData);
 
 
-                // Creating date element and appending it to dailyForecastTable
+                // Creating date element weatherDateElement (to hold day and date) and appending it to tableRowData
                 const date = new Date(weatherInfo.daily.time[index]);
-                const weatherDate = `${date.getUTCMonth() + 1}/${date.getUTCDate()}`;
                 const weatherDateElement = document.createElement("td");
                 weatherDateElement.className = "date-column";
-                weatherDateElement.textContent = weatherDate;
                 tableRowData.appendChild(weatherDateElement);
+
+                // Creating day of the week element and appending it to weatherDateElement
+                const dayOfWeek = document.createElement("p");
+                dayOfWeek.textContent = getDayOfWeek(date.getUTCDay());
+                weatherDateElement.appendChild(dayOfWeek);
+
+                // Creating weatherDate  and appending it to to weatherDateElement
+                const weatherDate = document.createElement("p");
+                weatherDate.textContent = `${date.getUTCMonth() + 1}/${date.getUTCDate()}`;
+                weatherDateElement.appendChild(weatherDate);
 
                 // Creating temperature element
                 const temperatureElement = document.createElement("td");
@@ -339,13 +358,13 @@ weatherForm.addEventListener("submit", (event) => {
                 // Creating span to bold highTemperature and appending to temperatureElement
                 const highTemeratureContainer = document.createElement("span");
                 highTemeratureContainer.className = "high-temperature-container"
-                highTemeratureContainer.textContent = Math.round(weatherInfo.daily.temperature_2m_max[index]);
+                highTemeratureContainer.textContent = `${Math.round(weatherInfo.daily.temperature_2m_max[index])}${(weatherInfo.daily_units.temperature_2m_max)}`;
                 temperatureElement.appendChild(highTemeratureContainer);
 
                 // Creating span to bold highTemperature and appending to temperatureElement
                 const lowTemeratureContainer = document.createElement("span");
                 lowTemeratureContainer.className = "low-temperature-container"
-                lowTemeratureContainer.textContent = Math.round(weatherInfo.daily.temperature_2m_min[index]);
+                lowTemeratureContainer.textContent = `${Math.round(weatherInfo.daily.temperature_2m_min[index])}${(weatherInfo.daily_units.temperature_2m_min)}`;
                 temperatureElement.appendChild(lowTemeratureContainer);
 
                 // Appending the temperature element to dailyForecastTable

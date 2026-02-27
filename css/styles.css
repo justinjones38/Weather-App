@@ -21,6 +21,7 @@ CSS VARIABLES
     --footer-bg-color: #061232;
     --form-hover-color: #303133;
     --footer-link-color: #D6D6D6;
+    --logo-hover-color: #919296;
 
     /* Opacity */
     --text-opacity: 80%;
@@ -98,11 +99,12 @@ header {
     background-color: transparent;
     border: none;
     color: inherit;
+    transition: color 0.3s;
 }
 
 .header-logo-container:focus,
 .header-logo-container:hover {
-    border-bottom: 1px solid var(--primary-font-color);
+    color: var(--logo-hover-color);
 }
 
 .weather-logo {
@@ -173,7 +175,7 @@ header {
 
 /* ---------- WEATHER DATA -----------*/
 .weather-data-container {
-    width: 95%;
+    width: 98%;
     margin: 1em auto;
     line-height: 1.2;
 }
@@ -248,7 +250,6 @@ header {
     margin: 0 auto;
     width: 100%;
     text-align: center;
-    font-size: 0.8rem;
 }
 
 .date-column, .temperature-column, .description-column, .precipitation-column {
@@ -256,7 +257,7 @@ header {
 }
 
 .date-column {
-    width: 10%;
+    width: 8%;
 }
 
 .temperature-column {
@@ -264,11 +265,11 @@ header {
 }
 
 .description-column {
-    width: 30%;
+    width: 15%;
 }
 
 .precipitation-column {
-    width: 15%;
+    width: 10%;
 }
 
 .weather-table-icon{
@@ -282,8 +283,6 @@ header {
     content: "/";
     display: inline;
 }
-
-
 
 
 
@@ -351,6 +350,9 @@ MEDIA QUERIES
 @media (min-width: 650px) {
     .hourly-forecast-list {
         grid-template-columns: repeat(6, 1fr);
+    }
+    .daily-forecast-table {
+        font-size: 1rem;
     }
 }
 
