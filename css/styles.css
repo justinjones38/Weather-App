@@ -239,9 +239,17 @@ header {
     opacity: 1;
 }
 
+.btn-unit:hover {
+    box-shadow: 0 0 2px 2px var(--primary-font-color);
+}
+
 
 .btn-unit:disabled {
     opacity: 0.6;
+}
+
+.btn-unit:disabled:hover {
+    box-shadow: none;
 }
 
 /* ---------- HOURLY FORECAST ----------- */

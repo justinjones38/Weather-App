@@ -56,6 +56,13 @@ const getDayOfWeek = (val) => {
     return daysOfWeek[val];
 }
 
+const getWindSpeedDirection = (val) => {
+    const windSpeedDirection = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
+    const index = Math.round(val / 22.5);
+    console.log(windSpeedDirection);
+    return windSpeedDirection[index];
+}
+
 
 
 // Button to reset document by closing weatherDataContainer and opening introDescriptionContainer
@@ -117,12 +124,10 @@ weatherForm.addEventListener("submit", (event) => {
                 throw new Error(locationRes.status);
             }
             const locationData = await locationRes.json();
-            console.log(locationData);
 
             // Getting the longitude and latitude from locationData
             const longitude = locationData.results[0].longitude;
             const latitude = locationData.results[0].latitude;
-            console.log(longitude, latitude);
 
             // Fetching weather information on location using latitude and longitude
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=6&past_hours=1`)
@@ -150,7 +155,6 @@ weatherForm.addEventListener("submit", (event) => {
             weatherImg.className = "weather-data-img";
             weatherImg.alt = weatherIcon.info;
             weatherData.appendChild(weatherImg);
-            console.log(weatherImg);
 
             // Creating temperature element and appending it to weatherContainer
             const temperature = document.createElement("p");
@@ -192,7 +196,8 @@ weatherForm.addEventListener("submit", (event) => {
             windSpeed.className = "weather-data-stats-item";
             windSpeed.textContent = `Wind Speed: `;
             const windSpeedVal = document.createElement("span")
-            windSpeedVal.textContent = `${Math.round(weatherInfo.current.wind_speed_10m)}${weatherInfo.current_units.wind_speed_10m}`
+            console.log(weatherInfo.current.wind_direction_10m);
+            windSpeedVal.textContent = `${getWindSpeedDirection(weatherInfo.current.wind_direction_10m)} ${Math.round(weatherInfo.current.wind_speed_10m)}${weatherInfo.current_units.wind_speed_10m}`
             windSpeed.appendChild(windSpeedVal);
             weatherContainerStats.appendChild(windSpeed);
 
@@ -248,7 +253,6 @@ weatherForm.addEventListener("submit", (event) => {
             imperialButton.addEventListener("click", () => {
                 // If imperialButton is disabled, then the button does not work
                 if (imperialButton.disabled) {
-                    console.log("done")
                     return;
                 }
                 // Removed weather data
@@ -269,7 +273,6 @@ weatherForm.addEventListener("submit", (event) => {
             metricButton.addEventListener("click", () => {
                 // If metricButton is disabled, then the button does not work
                 if (metricButton.disabled) {
-                    console.log("done")
                     return;
                 }
                 // Removed weather data
@@ -467,8 +470,7 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Changing position of footer to static
                 footer.classList.add("static");
-                console.log(weatherInfo);
-                console.log(metricButton);
+
             }
 
         } catch (error) {
