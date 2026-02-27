@@ -20,6 +20,7 @@ CSS VARIABLES
     --description-font: #E4E4E7;
     --footer-bg-color: #061232;
     --form-hover-color: #303133;
+    --footer-link-color: #D6D6D6;
 
     /* Opacity */
     --text-opacity: 80%;
@@ -153,12 +154,11 @@ header {
 /* ---------- DESCRIPTION -----------*/
 .intro-container {
     max-width: 800px;
-    width: 90%;
+    width: 95%;
     min-height: 60vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    margin-bottom: 20vh;
 }
 
 .intro-description {
@@ -276,16 +276,42 @@ header {
 
 
 /* --------- FOOTER -------------- */
-
 footer {
-    width: 95%;
-    max-width: 700px;
-    margin: 0 auto;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 1.2;
 }
 
-.flaricon-credit {
+.footer-container {
+    width: 94%;
+    max-width: 600px;
+    margin: 0 auto;
+    padding-bottom: 0.6em;
+}
+
+.flaticon-credit {
+    font-size: 1.1rem;
+    opacity: var(--text-opacity);
+    padding: 0.5em;
+}
+
+.flaticon-credit > a {
+    font-weight: 700;
+    color: var(--footer-link-color);
+    border-bottom: var(--form-link-color);
+    transition: color 0.3s opacity 0.3s;
+}
+
+.flaticon-credit > a:hover {
+    color: var(--primary-font-color);
+    opacity: 1;
+}
+
+.footer-copyright {
     font-size: 0.8rem;
-    opacity: var(--text-opacity)
+    text-align: center;
+    opacity: var(--text-opacity);
 }
 
 
@@ -304,6 +330,10 @@ UTILITIES
 
 .visible {
     display: block;
+}
+
+.static {
+    position: static;
 }
 
 /* ======================================================

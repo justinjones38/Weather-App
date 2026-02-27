@@ -8,6 +8,8 @@ const weatherData = document.querySelector(".weather-data-container");
 // Getting introContainer to hide welcoming text when seearching for city
 const introContainer = document.querySelector(".intro-container");
 
+// Getting footer to change position of footer to static when form submitted
+const footer = document.querySelector("footer");
 
 // Function to return weather icons 
 const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
@@ -37,12 +39,12 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
 }
 
 const getStandardTime = (hour) => {
-    if(hour === 0) {
+    if (hour === 0) {
         return `12am`
     } else if (hour > 0 && hour < 13) {
         return `${hour}am`;
     } else {
-        return `${hour%12}pm`;
+        return `${hour % 12}pm`;
     }
 }
 
@@ -58,6 +60,9 @@ headerButton.addEventListener("click", () => {
 
     // Hides the intro description
     introContainer.classList.remove("hidden");
+
+    // Removes position of static of footer from classList 
+    footer.classList.remove("static");
 })
 
 
@@ -374,7 +379,8 @@ weatherForm.addEventListener("submit", (event) => {
                 precipitationElement.textContent = `${weatherInfo.daily.precipitation_probability_max[index]}%`;
                 tableRowData.appendChild(precipitationElement);
 
-
+                // Changing position of footer to static
+                footer.classList.add("static");
             }
 
         } catch (error) {
@@ -385,5 +391,15 @@ weatherForm.addEventListener("submit", (event) => {
     }
     fetchData();
     weatherForm.reset();
-
 })
+
+// Getting footerContainer to append copyright symbol
+const footerContainer = document.querySelector(".footer-container");
+
+// Getting copyright year and creating copyright variable to append to footer container
+const year = new Date().getFullYear();
+const copyright = document.createElement("p");
+copyright.className = "footer-copyright";
+copyright.textContent = `\u{00A9} Justin Jones ${year}`;
+footerContainer.appendChild(copyright);
+
