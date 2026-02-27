@@ -15,30 +15,180 @@ const fetchErrorContainer = document.querySelector(".fetch-error-container");
 const footer = document.querySelector("footer");
 
 // Function to return weather icons 
-const getWeatherIcon = (weatherCode = 0, dayTime = 0) => {
-    if (weatherCode === 0 && dayTime) {
-        return { imgSrc: "./images/sun.png", info: "Clear Skies" }
-    } else if (weatherCode === 0 && !dayTime) {
-        return { imgSrc: "./images/moon.png", info: "Clear Skies" }
-    } else if (weatherCode >= 1 && weatherCode <= 3 && dayTime) {
-        return { imgSrc: "./images/cloudy.png", info: "Partly Cloudy" }
-    } else if (weatherCode >= 1 && weatherCode <= 3 && !dayTime) {
-        return { imgSrc: "./images/cloudy-night.png", info: "Partly Cloudy" }
-    } else if (weatherCode === 45 || weatherCode === 48) {
-        return { imgSrc: "./images/fog.png", info: "Fog" }
-    } else if (weatherCode >= 51 && weatherCode <= 57) {
-        return { imgSrc: "./images/drizzle.png", info: "Drizzle" }
-    } else if (weatherCode >= 61 && weatherCode <= 67) {
-        return { imgSrc: "./images/drizzle.png", info: "Rain" }
-    } else if (weatherCode >= 71 && weatherCode <= 77) {
-        return { imgSrc: "./images/snowy.png", info: "Snow" }
-    } else if (weatherCode >= 80 && weatherCode <= 82) {
-        return { imgSrc: "./images/heavy-rain.png", info: "Rain" }
-    } else if (weatherCode === 85 || weatherCode === 86) {
-        return { imgSrc: "./images/snowy.png", info: "Snow" }
-    } else {
-        return { imgSrc: "./images/thunderstoms.png", info: "Thunderstorms" }
+const getWeatherIcon = (weatherCode = 0, dayTime = 1) => {
+    const weatherCodeList = [{
+        weatherCode: 0,
+        dayTime: 1,
+        imgSrc: "./images/sun.png",
+        info: "Clear Skies"
+    }, {
+        weatherCode: 0,
+        dayTime: 0,
+        imgSrc: "./images/moon.png", 
+        info: "Clear Skies"
+    }, {
+        weatherCode: 1,
+        dayTime: 1,
+        imgSrc: "./images/sun.png", 
+        info: "Mainly Clear"
+    }, {
+        weatherCode: 1,
+        dayTime: 0,
+        imgSrc: "./images/moon.png", 
+        info: "Mainly Clear"
+    }, {
+        weatherCode: 2,
+        dayTime: 1,
+        imgSrc: "./images/partly-cloudy.png", 
+        info: "Partly Cloudy"
+    }, {
+        weatherCode: 2,
+        dayTime: 0,
+        imgSrc: "./images/partly-cloudy-moon.png", 
+        info: "Partly Cloudy"
+    }, {
+        weatherCode: 3,
+        dayTime: 1,
+        imgSrc: "./images/overcast.png", 
+        info: "Overcast"
+    }, {
+        weatherCode: 3,
+        dayTime: 0,
+        imgSrc: "./images/overcast-dark.png", 
+        info: "Overcast"
+    }, {
+        weatherCode: 45,
+        dayTime: 1,
+        imgSrc: "./images/fog.png", 
+        info: "Fog"
+    }, {
+        weatherCode: 48,
+        dayTime: 1,
+        imgSrc: "./images/fog.png", 
+        info: "Rime Fog"
+    }, {
+        weatherCode: 51,
+        dayTime: 1,
+        imgSrc: "./images/light-drizzle.png", 
+        info: "Light Drizzle"      
+    }, {
+        weatherCode: 53,
+        dayTime: 1,
+        imgSrc: "./images/drizzle.png", 
+        info: "Moderate Drizzle" 
+    }, {
+        weatherCode: 55,
+        dayTime: 1,
+        imgSrc: "./images/drizzle.png", 
+        info: "Drizzle" 
+    }, {
+        weatherCode: 56,
+        dayTime: 1,
+        imgSrc: "./images/freezing-rain.png", 
+        info: "Light Freezing Drizzle" 
+    }, {
+        weatherCode: 57,
+        dayTime: 1,
+        imgSrc: "./images/freezing-rain.png", 
+        info: "Freezing Drizzle" 
+    }, {
+        weatherCode: 61,
+        dayTime: 1,
+        imgSrc: "./images/rain.png", 
+        info: "Light Rain" 
+    }, {
+        weatherCode: 63,
+        dayTime: 1,
+        imgSrc: "./images/rain.png", 
+        info: "Moderate Rain" 
+    }, {
+        weatherCode: 65,
+        dayTime: 1,
+        imgSrc: "./images/heavy-rain.png", 
+        info: "Heavy Rain" 
+    }, {
+        weatherCode: 66,
+        dayTime: 1,
+        imgSrc: "./images/freezing-rain.png", 
+        info: "Light Freezing Rain" 
+    }, {
+        weatherCode: 67,
+        dayTime: 1,
+        imgSrc: "./images/freezing-rain.png", 
+        info: "Heavy Freezing rain" 
+    }, {
+        weatherCode: 71,
+        dayTime: 1,
+        imgSrc: "./images/light-snow.png", 
+        info: "Light Snow" 
+    }, {
+        weatherCode: 73,
+        dayTime: 1,
+        imgSrc: "./images/snow.png", 
+        info: "Moderate Snow" 
+    }, {
+        weatherCode: 75,
+        dayTime: 1,
+        imgSrc: "./images/snow.png", 
+        info: "Heavy Snow" 
+    }, {
+        weatherCode: 77,
+        dayTime: 1,
+        imgSrc: "./images/light-snow.png", 
+        info: "Snow Grains" 
+    }, {
+        weatherCode: 80,
+        dayTime: 1,
+        imgSrc: "./images/light-drizzle.png", 
+        info: "Light Rain Showers" 
+    }, {
+        weatherCode: 81,
+        dayTime: 1,
+        imgSrc: "./images/rain.png", 
+        info: "Moderate Rain Showers" 
+    }, {
+        weatherCode: 82,
+        dayTime: 1,
+        imgSrc: "./images/heavy-rain.png", 
+        info: "Heavy Rain Showers" 
+    }, {
+        weatherCode: 85,
+        dayTime: 1,
+        imgSrc: "./images/light-snow.png", 
+        info: "Light Snow Showers" 
+    }, {
+        weatherCode: 86,
+        dayTime: 1,
+        imgSrc: "./images/snow.png", 
+        info: "Heavy Snow Showers" 
+    }, {
+        weatherCode: 95,
+        dayTime: 1,
+        imgSrc: "./images/thunderstorm.png", 
+        info: "Thunderstorm" 
+    }, {
+        weatherCode: 96,
+        dayTime: 1,
+        imgSrc: "./images/hail.png", 
+        info: "Thunderstorm with light hail" 
+    }, {
+        weatherCode: 99,
+        dayTime: 1,
+        imgSrc: "./images/hail.png", 
+        info: "Thunderstorm with heavy hail" 
+    }];
+
+    if(weatherCode > 10) {
+        dayTime = 1;
     }
+
+    console.log(weatherCode, dayTime);
+
+
+    const filteredArray =  weatherCodeList.filter(item => {
+        return weatherCode === item.weatherCode && dayTime === item.dayTime;
+    })
+    return(filteredArray[0]);
 }
 
 const getStandardTime = (hour) => {
@@ -154,7 +304,7 @@ weatherForm.addEventListener("submit", (event) => {
 
             // If location and admin 1 are equal, then the only location is displayed. If they are not equal, then 
             // they are both displayed. admin1 usually show state or country 
-            weatherLocation.textContent = locationData.results[0].name === locationData.results[0].admin1 ? 
+            weatherLocation.textContent = locationData.results[0].name === locationData.results[0].admin1 ?
                 `${locationData.results[0].name}` :
                 `${locationData.results[0].name}, ${locationData.results[0].admin1}`;
 
