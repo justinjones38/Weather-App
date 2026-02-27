@@ -151,7 +151,13 @@ weatherForm.addEventListener("submit", (event) => {
             // Creating weatherLocation element and appending it to the weatherData container
             const weatherLocation = document.createElement("h1");
             weatherLocation.className = "weather-location";
-            weatherLocation.textContent = location;
+
+            // If location and admin 1 are equal, then the only location is displayed. If they are not equal, then 
+            // they are both displayed. admin1 usually show state or country 
+            weatherLocation.textContent = locationData.results[0].name === locationData.results[0].admin1 ? 
+                `${locationData.results[0].name}` :
+                `${locationData.results[0].name}, ${locationData.results[0].admin1}`;
+
             weatherData.appendChild(weatherLocation);
 
             // Getting weatherCode and isDay to use as parameters in the getWeatherIcon
