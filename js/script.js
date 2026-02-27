@@ -244,7 +244,6 @@ weatherForm.addEventListener("submit", (event) => {
                 hourlyForecastListItemIcon.className = "hourly-forecast-list-item-img";
                 hourlyForecastListItemIcon.src = hourlyWeatherIcon.imgSrc;
                 hourlyForecastListItemIcon.alt = hourlyWeatherIcon.info;
-                hourlyForecastListItemIcon.width = "50"
                 hourlyForecastListItem.appendChild(hourlyForecastListItemIcon);
 
                 // Creating hourlyForecastListItemTemp and appending it to hourlyForecastListItem

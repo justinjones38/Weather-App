@@ -227,8 +227,20 @@ header {
     justify-items: center;
     gap: 1.5em;
     margin-bottom: 2em;
-    font-size: 0.8rem;
+    max-width: 1000px;
+    margin: 0 auto 2em auto;
+    text-align: center;
 }
+
+.hourly-forecast-list-item-img {
+    margin: 0 auto 0.1em auto;
+    width: 2%;
+    min-width: 50px;
+}
+
+.hourly-forecast-list-item-temp, .hourly-forecast-list-item-time {
+    font-size: 1.2rem;
+} 
 
 /* ---------- 7 DAY FORECAST ----------- */
 .daily-forecast-table {
@@ -315,11 +327,6 @@ footer {
 }
 
 
-/* ======================================================
-COMPONENTS
-=========================================================*/
-
-
 
 /* ======================================================
 UTILITIES
@@ -339,3 +346,22 @@ UTILITIES
 /* ======================================================
 MEDIA QUERIES
 =========================================================*/
+
+/* -------SMALLER TABLETS */
+@media (min-width: 650px) {
+    .hourly-forecast-list {
+        grid-template-columns: repeat(6, 1fr);
+    }
+}
+
+@media (min-width: 800px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1500px) {
+    html {
+        font-size: 18px;
+    }
+}
