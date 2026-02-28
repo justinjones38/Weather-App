@@ -289,7 +289,7 @@ weatherForm.addEventListener("submit", (event) => {
             const latitude = locationData.results[0].latitude;
 
             // Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=6&past_hours=1`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=7&past_hours=1`)
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
@@ -477,7 +477,7 @@ weatherForm.addEventListener("submit", (event) => {
             hourlyForecastContainer.appendChild(hourlyForecastList);
 
 
-            for (let index = 1; index < hourlyLength; index++) {
+            for (let index = 2; index < hourlyLength; index++) {
                 // Creating hourlyForecastListItem and appending it to hourlyForecastList
                 const hourlyForecastListItem = document.createElement("li");
                 hourlyForecastListItem.className = "hourly-forecast-list-item";
