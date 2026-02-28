@@ -16,6 +16,7 @@ const footer = document.querySelector("footer");
 
 // Function to return weather icons 
 const getWeatherIcon = (weatherCode = 0, dayTime = 1) => {
+    // An array that holds a various of weather icons and info at different weather codes
     const weatherCodeList = [{
         weatherCode: 0,
         dayTime: 1,
@@ -178,12 +179,11 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 1) => {
         info: "Thunderstorm with heavy hail" 
     }];
 
-    if(weatherCode > 10) {
+    // Weather codes greater than 3 use the same image and info, so dayTime is set to 1. 
+    // So they are used together 
+    if(weatherCode > 3) {
         dayTime = 1;
     }
-
-    console.log(weatherCode, dayTime);
-
 
     const filteredArray =  weatherCodeList.filter(item => {
         return weatherCode === item.weatherCode && dayTime === item.dayTime;
@@ -263,6 +263,7 @@ weatherForm.addEventListener("submit", (event) => {
     imperialButton.className = "btn-unit";
     imperialButton.textContent = "Imperial Units";
     imperialButton.disabled = true;
+
     // Creating button to control when metric units are shown
     const metricButton = document.createElement("button");
     metricButton.className = "btn-unit";
@@ -271,9 +272,6 @@ weatherForm.addEventListener("submit", (event) => {
 
     // Getting location from the form
     const location = event.target.location.value.trim();
-
-
-
 
     // Fetching data from the API
     const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
@@ -308,6 +306,7 @@ weatherForm.addEventListener("submit", (event) => {
                 `${locationData.results[0].name}` :
                 `${locationData.results[0].name}, ${locationData.results[0].admin1}`;
 
+            // Append weatherLocation to the weatherData
             weatherData.appendChild(weatherLocation);
 
             // Getting weatherCode and isDay to use as parameters in the getWeatherIcon
