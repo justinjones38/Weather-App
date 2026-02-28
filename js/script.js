@@ -1,4 +1,4 @@
-
+const formButton = document.querySelector(".form-button")
 // Getting weatherForm via documentQuerySelector to get form Data
 const weatherForm = document.querySelector(".weather-form");
 
@@ -241,6 +241,8 @@ headerButton.addEventListener("click", () => {
 weatherForm.addEventListener("submit", (event) => {
     // Prevent Refresh
     event.preventDefault();
+
+    formButton.disabled = true;
 
     // Removed weather data
     while (weatherData.firstChild) {
@@ -651,6 +653,8 @@ weatherForm.addEventListener("submit", (event) => {
 
             console.error(error);
             return;
+        } finally {
+            formButton.disabled = false;
         }
 
     }
