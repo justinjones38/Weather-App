@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Weather app</title>
+
+    <!-- Favicon Icon -->
+     <link rel="icon" type="image/x-icon" href="images/drizzle.png">
+
+    <!-- Meta Tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="A simple weather app to get updates on weather">
+    <meta name="keywords" content="weather, rain, sunny, local weather">
+
+    <!-- Linking styles.css sheet -->
+    <link href="css/styles.css" rel="stylesheet">
+
+    <!-- Linking Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+        rel="stylesheet">
+
+    <!-- Adding Font Awesome Icons -->
+    <script src="https://kit.fontawesome.com/c7eb1ddbec.js" crossorigin="anonymous"></script>
+
+</head>
+
+<body>
+    <header>
+        <div class="header-logo-container">
+            <i class="fa-solid fa-cloud-showers-heavy"></i>
+            <p class="weather-logo">Weather App</p>
+        </div>
+    </header>
+
+    <main>
+        <form class="weather-form">
+            <div class="form-container">
+                <input type="text" placeholder="Please enter a city" name="location" id="location" class="form-input"
+                    aria-label="Search for a city to get weather" required>
+                <button type="submit" class="form-button"><i class="fa-solid fa-magnifying-glass"></i></button>
+            </div>
+        </form>
+
+        <div class="weather-data-container"></div>
+        <div class="intro-container">
+            <p class="intro-description">Thank you for visiting our site! Search for a city to get updated
+                    weather information.</p>
+        </div>
+    </main>
+    <footer>
+        <div class="footer-container">
+            <p class="flaricon-credit">
+                Thanks to flaxicon for providing these weather icons for this app.
+                You can visit their site for other great images too.
+            </p>
+        </div>
+    </footer>
+    <script src="js/script.js"></script>
+</body>
+
+</html>
