@@ -1,4 +1,6 @@
-const formButton = document.querySelector(".form-button")
+// Getting form Button via document.querySelector
+const formButton = document.querySelector(".form-button");
+
 // Getting weatherForm via documentQuerySelector to get form Data
 const weatherForm = document.querySelector(".weather-form");
 
@@ -25,172 +27,176 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 1) => {
     }, {
         weatherCode: 0,
         dayTime: 0,
-        imgSrc: "./images/moon.png", 
+        imgSrc: "./images/moon.png",
         info: "Clear Skies"
     }, {
         weatherCode: 1,
         dayTime: 1,
-        imgSrc: "./images/sun.png", 
+        imgSrc: "./images/sun.png",
         info: "Mainly Clear"
     }, {
         weatherCode: 1,
         dayTime: 0,
-        imgSrc: "./images/moon.png", 
+        imgSrc: "./images/moon.png",
         info: "Mainly Clear"
     }, {
         weatherCode: 2,
         dayTime: 1,
-        imgSrc: "./images/partly-cloudy.png", 
+        imgSrc: "./images/partly-cloudy.png",
         info: "Partly Cloudy"
     }, {
         weatherCode: 2,
         dayTime: 0,
-        imgSrc: "./images/partly-cloudy-moon.png", 
+        imgSrc: "./images/partly-cloudy-moon.png",
         info: "Partly Cloudy"
     }, {
         weatherCode: 3,
         dayTime: 1,
-        imgSrc: "./images/overcast.png", 
+        imgSrc: "./images/overcast.png",
         info: "Overcast"
     }, {
         weatherCode: 3,
         dayTime: 0,
-        imgSrc: "./images/overcast-dark.png", 
+        imgSrc: "./images/overcast-dark.png",
         info: "Overcast"
     }, {
         weatherCode: 45,
         dayTime: 1,
-        imgSrc: "./images/fog.png", 
+        imgSrc: "./images/fog.png",
         info: "Fog"
     }, {
         weatherCode: 48,
         dayTime: 1,
-        imgSrc: "./images/fog.png", 
+        imgSrc: "./images/fog.png",
         info: "Rime Fog"
     }, {
         weatherCode: 51,
         dayTime: 1,
-        imgSrc: "./images/light-drizzle.png", 
-        info: "Light Drizzle"      
+        imgSrc: "./images/light-drizzle.png",
+        info: "Light Drizzle"
     }, {
         weatherCode: 53,
         dayTime: 1,
-        imgSrc: "./images/drizzle.png", 
-        info: "Moderate Drizzle" 
+        imgSrc: "./images/drizzle.png",
+        info: "Moderate Drizzle"
     }, {
         weatherCode: 55,
         dayTime: 1,
-        imgSrc: "./images/drizzle.png", 
-        info: "Drizzle" 
+        imgSrc: "./images/drizzle.png",
+        info: "Drizzle"
     }, {
         weatherCode: 56,
         dayTime: 1,
-        imgSrc: "./images/freezing-rain.png", 
-        info: "Light Freezing Drizzle" 
+        imgSrc: "./images/freezing-rain.png",
+        info: "Light Freezing Drizzle"
     }, {
         weatherCode: 57,
         dayTime: 1,
-        imgSrc: "./images/freezing-rain.png", 
-        info: "Freezing Drizzle" 
+        imgSrc: "./images/freezing-rain.png",
+        info: "Freezing Drizzle"
     }, {
         weatherCode: 61,
         dayTime: 1,
-        imgSrc: "./images/rain.png", 
-        info: "Light Rain" 
+        imgSrc: "./images/rain.png",
+        info: "Light Rain"
     }, {
         weatherCode: 63,
         dayTime: 1,
-        imgSrc: "./images/rain.png", 
-        info: "Moderate Rain" 
+        imgSrc: "./images/rain.png",
+        info: "Moderate Rain"
     }, {
         weatherCode: 65,
         dayTime: 1,
-        imgSrc: "./images/heavy-rain.png", 
-        info: "Heavy Rain" 
+        imgSrc: "./images/heavy-rain.png",
+        info: "Heavy Rain"
     }, {
         weatherCode: 66,
         dayTime: 1,
-        imgSrc: "./images/freezing-rain.png", 
-        info: "Light Freezing Rain" 
+        imgSrc: "./images/freezing-rain.png",
+        info: "Light Freezing Rain"
     }, {
         weatherCode: 67,
         dayTime: 1,
-        imgSrc: "./images/freezing-rain.png", 
-        info: "Heavy Freezing rain" 
+        imgSrc: "./images/freezing-rain.png",
+        info: "Heavy Freezing rain"
     }, {
         weatherCode: 71,
         dayTime: 1,
-        imgSrc: "./images/light-snow.png", 
-        info: "Light Snow" 
+        imgSrc: "./images/light-snow.png",
+        info: "Light Snow"
     }, {
         weatherCode: 73,
         dayTime: 1,
-        imgSrc: "./images/snow.png", 
-        info: "Moderate Snow" 
+        imgSrc: "./images/snow.png",
+        info: "Moderate Snow"
     }, {
         weatherCode: 75,
         dayTime: 1,
-        imgSrc: "./images/snow.png", 
-        info: "Heavy Snow" 
+        imgSrc: "./images/snow.png",
+        info: "Heavy Snow"
     }, {
         weatherCode: 77,
         dayTime: 1,
-        imgSrc: "./images/light-snow.png", 
-        info: "Snow Grains" 
+        imgSrc: "./images/light-snow.png",
+        info: "Snow Grains"
     }, {
         weatherCode: 80,
         dayTime: 1,
-        imgSrc: "./images/light-drizzle.png", 
-        info: "Light Rain Showers" 
+        imgSrc: "./images/light-drizzle.png",
+        info: "Light Rain Showers"
     }, {
         weatherCode: 81,
         dayTime: 1,
-        imgSrc: "./images/rain.png", 
-        info: "Moderate Rain Showers" 
+        imgSrc: "./images/rain.png",
+        info: "Moderate Rain Showers"
     }, {
         weatherCode: 82,
         dayTime: 1,
-        imgSrc: "./images/heavy-rain.png", 
-        info: "Heavy Rain Showers" 
+        imgSrc: "./images/heavy-rain.png",
+        info: "Heavy Rain Showers"
     }, {
         weatherCode: 85,
         dayTime: 1,
-        imgSrc: "./images/light-snow.png", 
-        info: "Light Snow Showers" 
+        imgSrc: "./images/light-snow.png",
+        info: "Light Snow Showers"
     }, {
         weatherCode: 86,
         dayTime: 1,
-        imgSrc: "./images/snow.png", 
-        info: "Heavy Snow Showers" 
+        imgSrc: "./images/snow.png",
+        info: "Heavy Snow Showers"
     }, {
         weatherCode: 95,
         dayTime: 1,
-        imgSrc: "./images/thunderstorm.png", 
-        info: "Thunderstorm" 
+        imgSrc: "./images/thunderstorm.png",
+        info: "Thunderstorm"
     }, {
         weatherCode: 96,
         dayTime: 1,
-        imgSrc: "./images/hail.png", 
-        info: "Thunderstorm with light hail" 
+        imgSrc: "./images/hail.png",
+        info: "Thunderstorm with light hail"
     }, {
         weatherCode: 99,
         dayTime: 1,
-        imgSrc: "./images/hail.png", 
-        info: "Thunderstorm with heavy hail" 
+        imgSrc: "./images/hail.png",
+        info: "Thunderstorm with heavy hail"
     }];
 
     // Weather codes greater than 3 use the same image and info, so dayTime is set to 1. 
     // So they are used together 
-    if(weatherCode > 3) {
+    if (weatherCode > 3) {
         dayTime = 1;
     }
 
-    const filteredArray =  weatherCodeList.filter(item => {
+    // Filters the array so only the item that matches the weatherCode and dayTime returns
+    const filteredArray = weatherCodeList.filter(item => {
         return weatherCode === item.weatherCode && dayTime === item.dayTime;
     })
-    return(filteredArray[0]);
+
+    // Returns the 1 item in the array that has the weatherCode
+    return (filteredArray[0]);
 }
 
+// Function that converts to standardTime that is used in everyday world 
 const getStandardTime = (hour) => {
     if (hour === 0) {
         return `12am`
@@ -204,11 +210,13 @@ const getStandardTime = (hour) => {
     }
 }
 
+// Function that converts to the correct day of the week
 const getDayOfWeek = (val) => {
     const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
     return daysOfWeek[val];
 }
 
+// Function that converts to the wind speed degrees to the wind speed direction shown on compas
 const getWindSpeedDirection = (val) => {
     const windSpeedDirection = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
     const index = Math.round(val / 22.5);
@@ -218,13 +226,20 @@ const getWindSpeedDirection = (val) => {
 
 
 
-// Button to reset document by closing weatherDataContainer and opening introDescriptionContainer
 // Selecting button via documentQuerySelector
 const headerButton = document.querySelector(".header-button");
+
+// Creating event listener so headerButton can reset document by closing weatherDataContainer and opening introDescriptionContainer
+
 headerButton.addEventListener("click", () => {
     // Removed weather data
     while (weatherData.firstChild) {
         weatherData.removeChild(weatherData.firstChild);
+    }
+
+    // Removing previous fetchErrorContainer
+    while (fetchErrorContainer.firstChild) {
+        fetchErrorContainer.removeChild(fetchErrorContainer.firstChild)
     }
 
     // Hides the intro description
@@ -235,16 +250,15 @@ headerButton.addEventListener("click", () => {
 })
 
 
-
-
 // Event listener when form is submitted to search for city
 weatherForm.addEventListener("submit", (event) => {
     // Prevent Refresh
     event.preventDefault();
 
+    // the formButton is disabled to prevent duplicate fetch request
     formButton.disabled = true;
 
-    // Removed weather data
+    // Removed weather data to prevent duplicate cities from showing
     while (weatherData.firstChild) {
         weatherData.removeChild(weatherData.firstChild);
     }
@@ -278,8 +292,9 @@ weatherForm.addEventListener("submit", (event) => {
     // Fetching data from the API
     const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
         try {
-            // Fetching longitude and latitude to get location of city
+            // 1st fetch: Fetching longitude and latitude to get location of city
             const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
+
             // Verifying that location is found
             if (!locationRes.ok) {
                 throw new Error(locationRes.status);
@@ -290,8 +305,10 @@ weatherForm.addEventListener("submit", (event) => {
             const longitude = locationData.results[0].longitude;
             const latitude = locationData.results[0].latitude;
 
-            // Fetching weather information on location using latitude and longitude
+            // 2nd fetch Fetching weather information on location using latitude and longitude
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=7&past_hours=0`)
+
+            // Verify location is found
             if (!weatherRes.ok) {
                 throw new Error(weatherRes.status);
             }
@@ -302,6 +319,7 @@ weatherForm.addEventListener("submit", (event) => {
             const weatherLocation = document.createElement("h1");
             weatherLocation.className = "weather-location";
 
+            // Getting location via the first fetch
             // If location and admin 1 are equal, then the only location is displayed. If they are not equal, then 
             // they are both displayed. admin1 usually show state or country 
             weatherLocation.textContent = locationData.results[0].name === locationData.results[0].admin1 ?
@@ -343,24 +361,24 @@ weatherForm.addEventListener("submit", (event) => {
             temperatureContainer.appendChild(highTemperature);
 
 
-            // Getting low temperature and append it to temperautreContainer
+            // Creating low temperature and append it to temperautreContainer
             const lowTemperature = document.createElement("p");
             lowTemperature.className = "weather-data-min-max";
             lowTemperature.textContent = `L:${Math.round(weatherInfo.daily.temperature_2m_min[0])}${weatherInfo.current_units.temperature_2m}`;
             temperatureContainer.appendChild(lowTemperature);
 
-            // Appending current weather condition and appending it to weather container
+            // Creating weatherCondition appending it to weatherContainer
             const weatherCondition = document.createElement("p");
             weatherCondition.className = "weather-data-condition";
             weatherCondition.textContent = weatherIcon.info;
             weatherData.appendChild(weatherCondition);
 
-            // Creating weatherContainerStats to hold more intricate weather data 
+            // Creating weatherContainerStats to hold more intricate weather data and appending it to weatherData container
             const weatherContainerStats = document.createElement("ul");
             weatherContainerStats.className = "weather-data-stats";
             weatherData.appendChild(weatherContainerStats);
 
-            // Create windSpeed element and appending it to WeatherContainerStatsList - need to add wind direction later
+            // Create windSpeed element and appending it to WeatherContainerStatsList 
             const windSpeed = document.createElement("li");
             windSpeed.className = "weather-data-stats-item";
             windSpeed.textContent = `Wind Speed: `;
@@ -369,6 +387,7 @@ weatherForm.addEventListener("submit", (event) => {
             windSpeedVal.textContent = `${getWindSpeedDirection(weatherInfo.current.wind_direction_10m)} ${Math.round(weatherInfo.current.wind_speed_10m)}${weatherInfo.current_units.wind_speed_10m}`
             windSpeed.appendChild(windSpeedVal);
             weatherContainerStats.appendChild(windSpeed);
+
 
             // Create windGust element and appending it to WeatherContainerStatsList
             const windGusts = document.createElement("li");
@@ -379,6 +398,7 @@ weatherForm.addEventListener("submit", (event) => {
             windGusts.appendChild(windGustsVal);
             weatherContainerStats.appendChild(windGusts);
 
+
             // Creating apparentTemperature element and appending it to weatherContainerStats list
             const apparentTemperature = document.createElement("li");
             apparentTemperature.className = "weather-data-stats-item";
@@ -387,6 +407,7 @@ weatherForm.addEventListener("submit", (event) => {
             apparentTemperatureVal.textContent = `${Math.round(weatherInfo.current.apparent_temperature)}${weatherInfo.current_units.apparent_temperature}`
             apparentTemperature.appendChild(apparentTemperatureVal);
             weatherContainerStats.appendChild(apparentTemperature);
+
 
             // Creating relativeHumidity element and appending it to weatherContainerStats list
             const relativeHumidity = document.createElement("li");
@@ -397,6 +418,7 @@ weatherForm.addEventListener("submit", (event) => {
             relativeHumidity.appendChild(relativeHumidityVal);
             weatherContainerStats.appendChild(relativeHumidity);
 
+
             // Creating cloudCover element and appending it to weatherContainerStats list
             const cloudCover = document.createElement("li");
             cloudCover.className = "weather-data-stats-item";
@@ -405,6 +427,7 @@ weatherForm.addEventListener("submit", (event) => {
             cloudCoverVal.textContent = `${weatherInfo.current.cloud_cover}${weatherInfo.current_units.cloud_cover}`
             cloudCover.appendChild(cloudCoverVal);
             weatherContainerStats.appendChild(cloudCover);
+
 
             // Creating a buttonContainer to hold buttons to convert between imperial and metric system
             const buttonContainerUnitSystem = document.createElement("div");
@@ -418,13 +441,15 @@ weatherForm.addEventListener("submit", (event) => {
             // Appending metricButton to the buttonContainerUnitSystem
             buttonContainerUnitSystem.appendChild(metricButton);
 
-            // Add Event listener to metricButton to fetch the metric unit in fetch
+
+            // Add Event listener to imperialButton to fetch the metric unit in fetch
             imperialButton.addEventListener("click", () => {
+
                 // If imperialButton is disabled, then the button does not work
                 if (imperialButton.disabled) {
                     return;
                 }
-                // Removed weather data
+                // Removes previous weather data
                 while (weatherData.firstChild) {
                     weatherData.removeChild(weatherData.firstChild);
                 }
@@ -433,18 +458,22 @@ weatherForm.addEventListener("submit", (event) => {
                 imperialButton.disabled = true;
                 metricButton.disabled = false;
 
+                // Keeps footer element fixed to bottom while fetching new data
                 footer.classList.remove("static");
+
+                // Recalls fetchData function
                 fetchData(location);
             })
 
 
             // Add Event listener to metricButton to fetch the metric unit in fetch
             metricButton.addEventListener("click", () => {
+
                 // If metricButton is disabled, then the button does not work
                 if (metricButton.disabled) {
                     return;
                 }
-                // Removed weather data
+                // Removes previous weather data
                 while (weatherData.firstChild) {
                     weatherData.removeChild(weatherData.firstChild);
                 }
@@ -453,10 +482,12 @@ weatherForm.addEventListener("submit", (event) => {
                 imperialButton.disabled = false;
                 metricButton.disabled = true;
 
+                // Keeps footer element fixed to bottom while fetching new data
                 footer.classList.remove("static");
+
+                // Recalls fetchData function with empty parameters, so metric can be displayed
                 fetchData(location, "", "", "");
             })
-
 
 
             // Creating hourly forecast section and appending it to weatherData container
@@ -478,7 +509,7 @@ weatherForm.addEventListener("submit", (event) => {
             hourlyForecastList.className = "hourly-forecast-list";
             hourlyForecastContainer.appendChild(hourlyForecastList);
 
-
+            // Looping through each hour of the hourly forecast
             for (let index = 1; index < hourlyLength; index++) {
                 // Creating hourlyForecastListItem and appending it to hourlyForecastList
                 const hourlyForecastListItem = document.createElement("li");
@@ -566,9 +597,10 @@ weatherForm.addEventListener("submit", (event) => {
             tableRowHeader.appendChild(precipitationTableHeader);
 
 
-            let length = weatherInfo.daily.time.length;
-            for (let index = 0; index < length; index++) {
+            // Getting dailyLength for daily forecast
+            const dailyLength = weatherInfo.daily.time.length;
 
+            for (let index = 0; index < dailyLength; index++) {
                 // Creating table row for each table value
                 const tableRowData = document.createElement("tr");
                 tableRowData.className = "table-row table-val";
@@ -647,12 +679,10 @@ weatherForm.addEventListener("submit", (event) => {
             // Creating fetchErrorElement and appending it to fetchErrorContainer to notify users of error when fetching data
             const fetchErrorElement = document.createElement("p");
             fetchErrorElement.className = "fetch-error-element";
-            fetchErrorElement.textContent = `Cannot fetch your data for your selected city, please try again`
+            fetchErrorElement.textContent = `Cannot locate your selected city, please try again`
             fetchErrorContainer.appendChild(fetchErrorElement);
-
-
             console.error(error);
-            return;
+
         } finally {
             formButton.disabled = false;
         }
