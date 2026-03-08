@@ -210,6 +210,19 @@ const getStandardTime = (hour) => {
     }
 }
 
+const getMinuteTime = (hour, minute) => {
+    if (hour === 0) {
+        return `12:${minute}am`
+    } else if (hour > 0 && hour < 12) {
+        return `${hour}:${minute}am`;
+    } else if (hour === 12) {
+        return `${hour}:${minute}pm`
+    }
+    else {
+        return `${hour % 12}:${minute}pm`;
+    } 
+}
+
 // Function that converts to the correct day of the week
 const getDayOfWeek = (val) => {
     const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
@@ -306,7 +319,7 @@ weatherForm.addEventListener("submit", (event) => {
             const latitude = locationData.results[0].latitude;
 
             // 2nd fetch Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=25&past_hours=0&forecast_days=10`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset,weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=25&past_hours=0&forecast_days=10`)
 
             // Verify location is found
             if (!weatherRes.ok) {
@@ -428,6 +441,24 @@ weatherForm.addEventListener("submit", (event) => {
             cloudCover.appendChild(cloudCoverVal);
             weatherContainerStats.appendChild(cloudCover);
 
+            // Creating sunrise element and appending it to weatherContainerStats list
+            const sunrise = document.createElement("li");
+            sunrise.className = "weather-data-stats-item"
+            sunrise.textContent = `Sunrise Time: `;
+            const sunriseTime = document.createElement("span");
+            const sunriseTimeValue = new Date(weatherInfo.daily.sunrise[0]);
+            sunriseTime.textContent = getMinuteTime(sunriseTimeValue.getHours(),sunriseTimeValue.getMinutes());
+            sunrise.appendChild(sunriseTime);
+            weatherContainerStats.appendChild(sunrise);
+
+            const sunset = document.createElement("li");
+            sunset.className = "weather-data-stats-item";
+            sunset.textContent = `Sunset Time: `;
+            const sunsetTime = document.createElement("span");
+            const sunsetTimeValue = new Date(weatherInfo.daily.sunset[0]);
+            sunsetTime.textContent = getMinuteTime(sunsetTimeValue.getHours(),sunsetTimeValue.getMinutes());
+            sunset.appendChild(sunsetTime);
+            weatherContainerStats.appendChild(sunset);
 
             // Creating a buttonContainer to hold buttons to convert between imperial and metric system
             const buttonContainerUnitSystem = document.createElement("div");
