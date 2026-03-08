@@ -212,7 +212,7 @@ const getStandardTime = (hour) => {
 
 // Function that converts to the correct day of the week
 const getDayOfWeek = (val) => {
-    const daysOfWeek = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"];
+    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
     return daysOfWeek[val];
 }
 
@@ -306,7 +306,7 @@ weatherForm.addEventListener("submit", (event) => {
             const latitude = locationData.results[0].latitude;
 
             // 2nd fetch Fetching weather information on location using latitude and longitude
-            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=7&past_hours=0&forecast_days=10`)
+            const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=25&past_hours=0&forecast_days=10`)
 
             // Verify location is found
             if (!weatherRes.ok) {
@@ -501,8 +501,8 @@ weatherForm.addEventListener("submit", (event) => {
             hourlyForecastHeader.textContent = "Hourly Forecast";
             hourlyForecastContainer.appendChild(hourlyForecastHeader);
 
-            // Getting length of time array 
-            let hourlyLength = weatherInfo.hourly.time.length;
+            // Getting initial six hours of array
+            const initialHourlyLength = 7;
 
             // Creating hourlyForecastList to hold hourly forecast and appending it to hourlyForecastContainer
             const hourlyForecastList = document.createElement("ul");
@@ -510,11 +510,18 @@ weatherForm.addEventListener("submit", (event) => {
             hourlyForecastContainer.appendChild(hourlyForecastList);
 
             // Looping through each hour of the hourly forecast
-            for (let index = 1; index < hourlyLength; index++) {
+            for (let index = 1; index < initialHourlyLength; index++) {
                 // Creating hourlyForecastListItem and appending it to hourlyForecastList
                 const hourlyForecastListItem = document.createElement("li");
                 hourlyForecastListItem.className = "hourly-forecast-list-item";
                 hourlyForecastList.appendChild(hourlyForecastListItem);
+
+                // Creating hourlyForecastListItemPrecip and appending it to hourlyForecastListItem
+                const hourlyForecastListItemTime = document.createElement("p");
+                hourlyForecastListItemTime.className = "hourly-forecast-list-item-time";
+                const currentHour = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
+                hourlyForecastListItemTime.textContent = `${currentHour}`;
+                hourlyForecastListItem.appendChild(hourlyForecastListItemTime);
 
                 // Getting hourly weatherIcon from getWeatherIcon() function
                 const hourlyWeatherIcon = getWeatherIcon(weatherInfo.hourly.weather_code[index], weatherInfo.hourly.is_day[index]);
@@ -538,13 +545,108 @@ weatherForm.addEventListener("submit", (event) => {
                 hourlyForecastListItemPrecip.textContent = `Precip: ${Math.round(weatherInfo.hourly.precipitation_probability[index])}${(weatherInfo.hourly_units.precipitation_probability)}`;
                 hourlyForecastListItem.appendChild(hourlyForecastListItemPrecip);
 
-                // Creating hourlyForecastListItemPrecip and appending it to hourlyForecastListItem
-                const hourlyForecastListItemTime = document.createElement("p");
-                hourlyForecastListItemTime.className = "hourly-forecast-list-item-time";
-                const currentHour = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
-                hourlyForecastListItemTime.textContent = `${currentHour}`;
-                hourlyForecastListItem.appendChild(hourlyForecastListItemTime);
+
             }
+
+            // Complete hourlyForecastTable
+            const fullhourlyForecastSection = document.createElement("section");
+            fullhourlyForecastSection.className = "daily-forecast-container"
+            weatherData.appendChild(fullhourlyForecastSection);
+
+            // Creating table to hold 24 hour weather data
+            const hourlyForecastTable = document.createElement("table");
+            hourlyForecastTable.className = "daily-forecast-table";
+            fullhourlyForecastSection.appendChild(hourlyForecastTable);
+
+            // Creating table header for hourly weather data
+            const hourTableRowHeader = document.createElement("tr");
+            hourTableRowHeader.className = "table-row table-header";
+            hourlyForecastTable.appendChild(hourTableRowHeader);
+
+            // Creating hour table header element and appending it to table row
+            const hourlyTableHeader = document.createElement("th");
+            hourlyTableHeader.className = "date-column";
+            hourlyTableHeader.textContent = "HOUR";
+            hourTableRowHeader.appendChild(hourlyTableHeader);
+
+
+            // Creating temperature table header element and appending it to table row
+            const hourTemperatureTableHeader = document.createElement("th");
+            hourTemperatureTableHeader.className = "temperature-column";
+            hourTemperatureTableHeader.textContent = "TEMP";
+            hourTemperatureTableHeader.ariaLabel = "Temperature"
+            hourTableRowHeader.appendChild(hourTemperatureTableHeader);
+
+            // Creating data table header element and appending it to table row
+            const hourDescriptionTableHeader = document.createElement("th");
+            hourDescriptionTableHeader.className = "description-column";
+            hourDescriptionTableHeader.textContent = "DESC";
+            hourDescriptionTableHeader.ariaLabel = "Description";
+            hourTableRowHeader.appendChild(hourDescriptionTableHeader);
+
+            // Creating data table header element and appending it to table row
+            const hourPrecipitationTableHeader = document.createElement("th");
+            hourPrecipitationTableHeader.className = "precipitation-column";
+            hourPrecipitationTableHeader.textContent = "PRECIP";
+            hourPrecipitationTableHeader.ariaLabel = "Precipitation";
+            hourTableRowHeader.appendChild(hourPrecipitationTableHeader);
+
+            // Creating variable to get length of weatherInfo.hourly array
+            const hourlyForecastLength = weatherInfo.hourly.time.length
+
+            for (let index = initialHourlyLength; index < hourlyForecastLength; index++) {
+                const hourlyTableRow = document.createElement("tr");
+                hourlyTableRow.className = "table-row table-val";
+                hourlyForecastTable.appendChild(hourlyTableRow);
+
+                const hourlyTableData = document.createElement("td");
+                hourlyTableData.className = "date-column";
+                hourlyTableRow.appendChild(hourlyTableData);
+
+                // Appending hourly Table value
+                const hourlyTableVal = document.createElement("p");
+                hourlyTableVal.textContent = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
+                hourlyTableData.appendChild(hourlyTableVal);
+
+                // Appending date to hourly TableData 
+                const hourlyTableDate = document.createElement("p");
+                const hourlyMonth = new Date(weatherInfo.hourly.time[index]).getMonth() + 1;
+                const hourlyDay = new Date(weatherInfo.hourly.time[index]).getDate();
+                hourlyTableDate.textContent = `${hourlyMonth}/${hourlyDay}`;
+                hourlyTableData.appendChild(hourlyTableDate);
+
+                // Appending temperature to hourlyTableData
+                const tempTableData = document.createElement("td");
+                tempTableData.className = "temperature-column";
+                tempTableData.textContent = `${Math.round(weatherInfo.hourly.temperature_2m[index])}${weatherInfo.hourly_units.temperature_2m}`;
+                hourlyTableRow.appendChild(tempTableData);
+
+                // Appending weatherIcon and description
+                const hourlyDescriptionData = document.createElement("td");
+                hourlyDescriptionData.className = "description-column";
+                hourlyTableRow.appendChild(hourlyDescriptionData);
+
+                // Appending weatherIcon to hourlyDescriptionData
+                const hourlyWeatherIcon = getWeatherIcon(weatherInfo.hourly.weather_code[index], weatherInfo.hourly.is_day[index]);
+                
+                const hourlyWeatherImg = document.createElement("img");
+                hourlyWeatherImg.src = hourlyWeatherIcon.imgSrc;
+                hourlyWeatherImg.alt = hourlyWeatherIcon.info;
+                hourlyWeatherImg.className = "weather-table-icon"
+                hourlyDescriptionData.appendChild(hourlyWeatherImg);
+
+                const hourlyWeatherInfo = document.createElement("p");
+                hourlyWeatherInfo.className = "weather-table-info";
+                hourlyWeatherInfo.textContent = hourlyWeatherIcon.info;
+                hourlyDescriptionData.appendChild(hourlyWeatherInfo);
+
+                // Appending precipiation to hourlyTableRow
+                const hourlyPrecipitation = document.createElement("td");
+                hourlyPrecipitation.className = "precipitation-column"
+                hourlyPrecipitation.textContent = `${weatherInfo.hourly.precipitation_probability[index]}%`;
+                hourlyTableRow.appendChild(hourlyPrecipitation);
+            }
+
 
 
             // Creating daily forecast container and appending to weatherData container
@@ -559,7 +661,7 @@ weatherForm.addEventListener("submit", (event) => {
             dailyForecastContainer.appendChild(dailyForecastHeader);
 
             // Creating table to holder daily forecast and appending it to dailyForecastContainer
-            let dailyForecastTable = document.createElement("table");
+            const dailyForecastTable = document.createElement("table");
             dailyForecastTable.className = "daily-forecast-table";
             dailyForecastContainer.appendChild(dailyForecastTable);
 

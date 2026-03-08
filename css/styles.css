@@ -289,36 +289,48 @@ header {
 /* ---------- 7 DAY FORECAST ----------- */
 .daily-forecast-table {
     max-width: 1000px;
+    width: 95%;
     margin: 0 auto;
-    width: 100%;
-    text-align: center;
 }
 
-.date-column, .temperature-column, .description-column, .precipitation-column {
-    text-align: center;
+
+th.date-column {
+    text-align: left;
 }
 
 .date-column {
-    width: 8%;
+    min-width: 50px;
+    width: 15%;
+}
+
+th.temperature-column {
+    text-align: center;
 }
 
 .temperature-column {
     width: 20%;
+    min-width: 100px;
+    text-align: center;
 }
 
 .description-column {
-    width: 15%;
+    width: 25%;
+    min-width: 80px;
+    text-align: center;
 }
 
 .precipitation-column {
-    width: 10%;
+    min-width: 60px;
+    text-align: center;
 }
 
+
+
 .weather-table-icon{
-    margin: 0 auto;
     width: 20%;
     max-width: 75px;
     min-width: 50px;
+    margin: 0 auto;
 }
 
 .high-temperature-container::after {
