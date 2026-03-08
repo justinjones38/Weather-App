@@ -668,11 +668,10 @@ weatherForm.addEventListener("submit", (event) => {
                 precipitationElement.className = "precipitation-column";
                 precipitationElement.textContent = `${weatherInfo.daily.precipitation_probability_max[index]}%`;
                 tableRowData.appendChild(precipitationElement);
-
-                // Changing position of footer to static
-                footer.classList.add("static");
-
             }
+
+            // Changing position of footer to static
+            footer.classList.add("static");
 
         } catch (error) {
 
