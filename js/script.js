@@ -196,8 +196,8 @@ const getWeatherIcon = (weatherCode = 0, dayTime = 1) => {
     return (filteredArray[0]);
 }
 
-// Function that converts to standardTime that is used in everyday world 
-const getStandardTime = (hour) => {
+// Function that converts time to hour in am or pm
+const getTimeByHour = (hour) => {
     if (hour === 0) {
         return `12am`
     } else if (hour > 0 && hour < 12) {
@@ -210,7 +210,14 @@ const getStandardTime = (hour) => {
     }
 }
 
-const getMinuteTime = (hour, minute) => {
+// Function that converts time to minute in am or pm
+const getTimeByMinute = (hour, minute) => {
+    // Adding leading 0 if minute is less than
+    if(minute < 10) {
+        minute = `0${minute}`;
+    }
+
+    // Converting time to hour
     if (hour === 0) {
         return `12:${minute}am`
     } else if (hour > 0 && hour < 12) {
@@ -447,16 +454,17 @@ weatherForm.addEventListener("submit", (event) => {
             sunrise.textContent = `Sunrise Time: `;
             const sunriseTime = document.createElement("span");
             const sunriseTimeValue = new Date(weatherInfo.daily.sunrise[0]);
-            sunriseTime.textContent = getMinuteTime(sunriseTimeValue.getHours(),sunriseTimeValue.getMinutes());
+            sunriseTime.textContent = getTimeByMinute(sunriseTimeValue.getHours(),sunriseTimeValue.getMinutes());
             sunrise.appendChild(sunriseTime);
             weatherContainerStats.appendChild(sunrise);
 
+            // Creating sunrise element and appending it to weatherContainerStats list
             const sunset = document.createElement("li");
             sunset.className = "weather-data-stats-item";
             sunset.textContent = `Sunset Time: `;
             const sunsetTime = document.createElement("span");
             const sunsetTimeValue = new Date(weatherInfo.daily.sunset[0]);
-            sunsetTime.textContent = getMinuteTime(sunsetTimeValue.getHours(),sunsetTimeValue.getMinutes());
+            sunsetTime.textContent = getTimeByMinute(sunsetTimeValue.getHours(),sunsetTimeValue.getMinutes());
             sunset.appendChild(sunsetTime);
             weatherContainerStats.appendChild(sunset);
 
@@ -550,7 +558,7 @@ weatherForm.addEventListener("submit", (event) => {
                 // Creating hourlyForecastListItemPrecip and appending it to hourlyForecastListItem
                 const hourlyForecastListItemTime = document.createElement("p");
                 hourlyForecastListItemTime.className = "hourly-forecast-list-item-time";
-                const currentHour = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
+                const currentHour = getTimeByHour(new Date(weatherInfo.hourly.time[index]).getHours());
                 hourlyForecastListItemTime.textContent = `${currentHour}`;
                 hourlyForecastListItem.appendChild(hourlyForecastListItemTime);
 
@@ -642,7 +650,7 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Appending hourly Table value
                 const hourlyTableVal = document.createElement("p");
-                hourlyTableVal.textContent = getStandardTime(new Date(weatherInfo.hourly.time[index]).getHours());
+                hourlyTableVal.textContent = getTimeByHour(new Date(weatherInfo.hourly.time[index]).getHours());
                 hourlyTableData.appendChild(hourlyTableVal);
 
                 // Appending date to hourly TableData 
@@ -754,6 +762,7 @@ weatherForm.addEventListener("submit", (event) => {
             // Getting dailyLength for daily forecast
             const dailyLength = weatherInfo.daily.time.length;
 
+            // Looping through daily forecast 
             for (let index = 0; index < dailyLength; index++) {
                 // Creating table row for each table value
                 const tableRowData = document.createElement("tr");
