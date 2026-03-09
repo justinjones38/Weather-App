@@ -8,6 +8,10 @@ RESET
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+}
+
 
 
 /* ======================================================
@@ -26,6 +30,11 @@ CSS VARIABLES
 
     /* Opacity */
     --text-opacity: 80%;
+
+    /* Border Color */
+    --weather-border-style: 1px solid var(--primary-font-color);
+    --table-border-style: 2px solid rgba(255, 255, 255, 0.161);
+
 }
 
 /* ======================================================
@@ -73,13 +82,22 @@ h1, h2 {
     line-height: 1.3;
 }
 
+
 h1 {
     font-size: 1.5rem;
 }
 
 h2 {
     font-size: 1.1rem;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 1rem;
+    opacity: var(--text-opacity);
+    text-align: center;
+    text-transform: capitalize;
+    margin-bottom: 0.5em;
 }
 
 
@@ -226,7 +244,7 @@ header {
 
 .weather-data-stats-item {
     display: flex;
-    border-bottom: 1px solid var(--primary-font-color);
+    border-bottom: var(--weather-border-style);
     width: 100%;
     justify-content: space-between;
     font-size: 1.1rem;
@@ -286,21 +304,59 @@ header {
     font-size: 1.2rem;
 } 
 
+.hourly-table-section {
+    display: none;
+}
+
+.hourly-table-btn {
+    display: block;
+    width: 80%;
+    max-width: 275px;
+    text-align: center;
+    margin: 1em auto 2em auto;
+    background-color: transparent;
+    padding: 1em 1.25em;
+    font-size: 1.2rem;
+    color: var(--primary-font-color); 
+    border: 1px solid var(--primary-font-color);  
+    border-radius: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+}
+
+
+
+.hourly-table-btn:hover,
+.hourly-table-btn:focus {
+    box-shadow: 0 0 2px 2px var(--primary-font-color);
+    cursor: pointer;
+}
+
+
 /* ---------- 7 DAY FORECAST ----------- */
-.daily-forecast-table {
-    max-width: 1000px;
+.daily-forecast-container {
+    max-width: 1200px;
     width: 95%;
     margin: 0 auto;
 }
 
-
-th.date-column {
-    text-align: left;
+.daily-forecast-table {
+    width: 100%;
+    margin: 0 auto;
+    border-spacing: 0;
 }
+
+.table-row > td {
+    padding: 0.5em 0 0.2em 0;
+    border-bottom: var(--table-border-style)
+}
+
+
 
 .date-column {
     min-width: 50px;
     width: 15%;
+    text-align: center;
 }
 
 th.temperature-column {
@@ -308,7 +364,7 @@ th.temperature-column {
 }
 
 .temperature-column {
-    width: 20%;
+    width: 15%;
     min-width: 100px;
     text-align: center;
 }
@@ -319,17 +375,20 @@ th.temperature-column {
     text-align: center;
 }
 
+
+
 .precipitation-column {
     min-width: 60px;
     text-align: center;
+    width: 20%;
 }
 
 
 
 .weather-table-icon{
-    width: 20%;
+    width: 8%;
     max-width: 75px;
-    min-width: 50px;
+    min-width: 40px;
     margin: 0 auto;
 }
 
@@ -406,13 +465,17 @@ MEDIA QUERIES
         grid-template-columns: repeat(6, 1fr);
     }
     .daily-forecast-table {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
 }
 
 @media (min-width: 800px) {
     html {
         font-size: 17px;
+    }
+
+    .daily-forecast-table {
+        width: 90%;
     }
 }
 

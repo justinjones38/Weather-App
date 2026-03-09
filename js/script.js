@@ -575,14 +575,20 @@ weatherForm.addEventListener("submit", (event) => {
                 hourlyForecastListItemPrecip.className = "hourly-forecast-list-item-precip";
                 hourlyForecastListItemPrecip.textContent = `Precip: ${Math.round(weatherInfo.hourly.precipitation_probability[index])}${(weatherInfo.hourly_units.precipitation_probability)}`;
                 hourlyForecastListItem.appendChild(hourlyForecastListItemPrecip);
-
-
             }
+
 
             // Complete hourlyForecastTable
             const fullhourlyForecastSection = document.createElement("section");
-            fullhourlyForecastSection.className = "daily-forecast-container"
+            fullhourlyForecastSection.className = "daily-forecast-container hourly-table-section";
+            fullhourlyForecastSection.id = "hourly-table-section"
             weatherData.appendChild(fullhourlyForecastSection);
+
+            const hourlyTableTitle = document.createElement("h3");
+            hourlyTableTitle.className = "section-title";
+            hourlyTableTitle.textContent = "Next 18 Hours";
+            fullhourlyForecastSection.appendChild(hourlyTableTitle);
+
 
             // Creating table to hold 24 hour weather data
             const hourlyForecastTable = document.createElement("table");
@@ -678,7 +684,22 @@ weatherForm.addEventListener("submit", (event) => {
                 hourlyTableRow.appendChild(hourlyPrecipitation);
             }
 
+            // Creating button to show the next 18 hours of the weather forecast
+            const hourlyTableButton = document.createElement("a");
+            hourlyTableButton.className = "hourly-table-btn";
+            hourlyTableButton.textContent = "View next 18 Hours";
+            hourlyTableButton.href = "#hourly-table-section";
+            weatherData.appendChild(hourlyTableButton);
 
+            // functon to display/hide hourlyForecastTable
+            hourlyTableButton.addEventListener("click", () => {
+                fullhourlyForecastSection.classList.toggle("visible");
+                if(fullhourlyForecastSection.classList.contains("visible")) {
+                    hourlyTableButton.textContent = "Hide Extra Hours";
+                } else {
+                    hourlyTableButton.textContent = "View next 18 Hours";
+                }
+            })
 
             // Creating daily forecast container and appending to weatherData container
             const dailyForecastContainer = document.createElement("section");
@@ -753,7 +774,7 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Creating weatherDate  and appending it to to weatherDateElement
                 const weatherDate = document.createElement("p");
-                weatherDate.textContent = `${date.getUTCMonth() + 1}/${date.getUTCDate()}`;
+                weatherDate.textContent = `${date.getMonth() + 1}/${date.getUTCDate()}`;
                 weatherDateElement.appendChild(weatherDate);
 
                 // Creating temperature element
