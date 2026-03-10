@@ -146,6 +146,10 @@ header {
     border-radius: 6px;
 }
 
+.form-container.invalid {
+    border: 2px solid red;
+}
+
 .form-input {
     width: 90%;
     padding: 0.4em;

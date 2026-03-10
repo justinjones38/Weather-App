@@ -1,14 +1,21 @@
+// Getting weatherForm via documentQuerySelector to get form Data
+const weatherForm = document.querySelector(".weather-form");
+
+// Getting formInput via document.querySelector
+const formInput = document.querySelector(".form-input")
+
 // Getting form Button via document.querySelector
 const formButton = document.querySelector(".form-button");
 
-// Getting weatherForm via documentQuerySelector to get form Data
-const weatherForm = document.querySelector(".weather-form");
 
 // Getting weatherData via documentQuerySelector to display weather Data
 const weatherData = document.querySelector(".weather-data-container");
 
 // Getting introContainer to hide welcoming text when seearching for city
 const introContainer = document.querySelector(".intro-container");
+
+// Getting formContainer via documentQuerySelector
+const formContainer = document.querySelector(".form-container")
 
 // Creating fetchErrorContainer to hold error in searching
 const fetchErrorContainer = document.querySelector(".fetch-error-container");
@@ -264,6 +271,11 @@ const getWindSpeedDirection = (val) => {
     console.log(windSpeedDirection);
     return windSpeedDirection[index];
 }
+
+// Remove invalid class when a key is down
+formInput.addEventListener("keydown", () => {
+    formContainer.classList.remove("invalid");  
+})
 
 
 
@@ -930,6 +942,8 @@ weatherForm.addEventListener("submit", (event) => {
             fetchErrorElement.className = "fetch-error-element";
             fetchErrorElement.textContent = `Cannot locate your selected city, please try again`
             fetchErrorContainer.appendChild(fetchErrorElement);
+            formContainer.classList.add("invalid");
+            console.log(formContainer.innerHTML);
             console.error(error);
 
         } finally {
@@ -940,6 +954,7 @@ weatherForm.addEventListener("submit", (event) => {
     fetchData(location);
     weatherForm.reset();
 })
+
 
 // Getting footerContainer to append copyright symbol
 const footerContainer = document.querySelector(".footer-container");
