@@ -344,11 +344,10 @@ weatherForm.addEventListener("submit", (event) => {
 
     // Fetching data from the API
     const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
-        const locationArr = location.split(",");
-        console.log(locationArr);
+        console.log(location);
         try {
             // 1st fetch: Fetching longitude and latitude to get location of city
-            const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${locationArr[0]}&format=json`);
+            const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
 
             // Verifying that location is found
             if (!locationRes.ok) {
@@ -357,7 +356,6 @@ weatherForm.addEventListener("submit", (event) => {
             const locationData = await locationRes.json();
 
             console.log(locationData.results.length);
-            for (let index = 0; index < location.results.length)
             // Getting the longitude and latitude from locationData
             const longitude = locationData.results[0].longitude;
             const latitude = locationData.results[0].latitude;
