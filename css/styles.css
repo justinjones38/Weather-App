@@ -62,8 +62,9 @@ img {
     display: block;
 }
 
-ul, li {
-   list-style-type: none; 
+ul,
+li {
+    list-style-type: none;
 }
 
 li {
@@ -74,7 +75,8 @@ li {
 /* ======================================================
 TYPGRAPHY
 =========================================================*/
-h1, h2 {
+h1,
+h2 {
     font-weight: 700;
     letter-spacing: 1px;
     opacity: var(--text-opacity);
@@ -142,6 +144,10 @@ header {
     margin: 0 auto;
     min-height: 35px;
     border-radius: 6px;
+}
+
+.form-container.invalid {
+    border: 2px solid red;
 }
 
 .form-input {
@@ -213,7 +219,8 @@ header {
 .weather-data-img {
     width: 7%;
     min-width: 50px;
-    margin: 0 auto;;
+    margin: 0 auto;
+    ;
 }
 
 .weather-data-temperature {
@@ -301,9 +308,10 @@ header {
     min-width: 50px;
 }
 
-.hourly-forecast-list-item-temp, .hourly-forecast-list-item-time {
+.hourly-forecast-list-item-temp,
+.hourly-forecast-list-item-time {
     font-size: 1.2rem;
-} 
+}
 
 .hourly-table-section {
     display: none;
@@ -318,8 +326,8 @@ header {
     background-color: transparent;
     padding: 1em 1.25em;
     font-size: 1.2rem;
-    color: var(--primary-font-color); 
-    border: 1px solid var(--primary-font-color);  
+    color: var(--primary-font-color);
+    border: 1px solid var(--primary-font-color);
     border-radius: 8px;
     text-decoration: none;
     transition: box-shadow 0.3s;
@@ -335,6 +343,14 @@ header {
 
 
 /* ---------- 7 DAY FORECAST ----------- */
+.table-header {
+    text-transform: uppercase;
+}
+
+.full-text {
+    display: none;
+}
+
 .daily-forecast-container {
     max-width: 1200px;
     width: 95%;
@@ -347,7 +363,7 @@ header {
     border-spacing: 0;
 }
 
-.table-row > td {
+.table-row>td {
     padding: 0.5em 0 0.2em 0;
     border-bottom: var(--table-border-style)
 }
@@ -386,7 +402,7 @@ th.temperature-column {
 
 
 
-.weather-table-icon{
+.weather-table-icon {
     width: 8%;
     max-width: 75px;
     min-width: 40px;
@@ -421,14 +437,14 @@ footer {
     padding: 0.5em;
 }
 
-.flaticon-credit > a {
+.flaticon-credit>a {
     font-weight: 700;
     color: var(--footer-link-color);
     border-bottom: var(--form-link-color);
     transition: color 0.3s opacity 0.3s;
 }
 
-.flaticon-credit > a:hover {
+.flaticon-credit>a:hover {
     color: var(--primary-font-color);
     opacity: 1;
 }
@@ -465,9 +481,23 @@ MEDIA QUERIES
     .hourly-forecast-list {
         grid-template-columns: repeat(6, 1fr);
     }
+
     .daily-forecast-table {
         font-size: 1.1rem;
     }
+
+    .table-header {
+        text-transform: initial;
+    }
+
+    .abbr-text {
+        display: none;
+    }
+
+    .full-text {
+        display: block;
+    }
+
 }
 
 @media (min-width: 800px) {

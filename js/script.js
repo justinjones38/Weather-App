@@ -1,14 +1,21 @@
+// Getting weatherForm via documentQuerySelector to get form Data
+const weatherForm = document.querySelector(".weather-form");
+
+// Getting formInput via document.querySelector
+const formInput = document.querySelector(".form-input")
+
 // Getting form Button via document.querySelector
 const formButton = document.querySelector(".form-button");
 
-// Getting weatherForm via documentQuerySelector to get form Data
-const weatherForm = document.querySelector(".weather-form");
 
 // Getting weatherData via documentQuerySelector to display weather Data
 const weatherData = document.querySelector(".weather-data-container");
 
 // Getting introContainer to hide welcoming text when seearching for city
 const introContainer = document.querySelector(".intro-container");
+
+// Getting formContainer via documentQuerySelector
+const formContainer = document.querySelector(".form-container")
 
 // Creating fetchErrorContainer to hold error in searching
 const fetchErrorContainer = document.querySelector(".fetch-error-container");
@@ -232,7 +239,28 @@ const getTimeByMinute = (hour, minute) => {
 
 // Function that converts to the correct day of the week
 const getDayOfWeek = (val) => {
-    const daysOfWeek = ["Sun", "Mon", "Tue", "Wed", "Thur", "Fri", "Sat"];
+    const daysOfWeek = [{
+        abbr: "Sun",
+        full: "Sunday"
+    }, {
+        abbr: "Mon",
+        full: "Monday"
+    }, {
+        abbr: "Tue",
+        full: "Tuesday"
+    }, {
+        abbr: "Wed",
+        full: "Wednesday"
+    }, {
+        abbr: "Thu",
+        full: "Thursday"
+    }, {
+        abbr: "Fri",
+        full: "Friday"
+    }, {
+        abbr: "Sat",
+        full: "Saturday"
+    }]
     return daysOfWeek[val];
 }
 
@@ -243,6 +271,11 @@ const getWindSpeedDirection = (val) => {
     console.log(windSpeedDirection);
     return windSpeedDirection[index];
 }
+
+// Remove invalid class when a key is down
+formInput.addEventListener("keydown", () => {
+    formContainer.classList.remove("invalid");  
+})
 
 
 
@@ -616,30 +649,57 @@ weatherForm.addEventListener("submit", (event) => {
             // Creating hour table header element and appending it to table row
             const hourlyTableHeader = document.createElement("th");
             hourlyTableHeader.className = "date-column";
-            hourlyTableHeader.textContent = "HOUR";
+            hourlyTableHeader.textContent = "Hour";
             hourTableRowHeader.appendChild(hourlyTableHeader);
 
 
             // Creating temperature table header element and appending it to table row
             const hourTemperatureTableHeader = document.createElement("th");
             hourTemperatureTableHeader.className = "temperature-column";
-            hourTemperatureTableHeader.textContent = "TEMP";
-            hourTemperatureTableHeader.ariaLabel = "Temperature"
             hourTableRowHeader.appendChild(hourTemperatureTableHeader);
+
+            const hourAbbrTemp = document.createElement("p");
+            hourAbbrTemp.className = "abbr-text";
+            hourAbbrTemp.textContent = "Temp";
+            hourAbbrTemp.ariaLabel = "Temperature"
+            hourTemperatureTableHeader.appendChild(hourAbbrTemp);
+
+            const hourFullTemp = document.createElement("p");
+            hourFullTemp.className = "full-text";
+            hourFullTemp.textContent = "Temperature"
+            hourTemperatureTableHeader.appendChild(hourFullTemp);
 
             // Creating data table header element and appending it to table row
             const hourDescriptionTableHeader = document.createElement("th");
             hourDescriptionTableHeader.className = "description-column";
-            hourDescriptionTableHeader.textContent = "DESC";
-            hourDescriptionTableHeader.ariaLabel = "Description";
             hourTableRowHeader.appendChild(hourDescriptionTableHeader);
+
+            const hourAbbrDesc = document.createElement("p");
+            hourAbbrDesc.className = "abbr-text";
+            hourAbbrDesc.textContent = "Desc";
+            hourAbbrDesc.ariaLabel = "Description";
+            hourDescriptionTableHeader.appendChild(hourAbbrDesc);
+
+            const hourFullDesc = document.createElement("p");
+            hourFullDesc.className = "full-text";
+            hourFullDesc.textContent = "Description";
+            hourDescriptionTableHeader.appendChild(hourFullDesc);
 
             // Creating data table header element and appending it to table row
             const hourPrecipitationTableHeader = document.createElement("th");
             hourPrecipitationTableHeader.className = "precipitation-column";
-            hourPrecipitationTableHeader.textContent = "PRECIP";
-            hourPrecipitationTableHeader.ariaLabel = "Precipitation";
             hourTableRowHeader.appendChild(hourPrecipitationTableHeader);
+
+            const hourAbbrPrec = document.createElement("p");
+            hourAbbrPrec.className = "abbr-text";
+            hourAbbrPrec.textContent = "Precip";
+            hourAbbrPrec.ariaLabel = "Precipitation";
+            hourPrecipitationTableHeader.appendChild(hourAbbrPrec);
+
+            const hourFullPrec = document.createElement("p");
+            hourFullPrec.className = "full-text";
+            hourFullPrec.textContent = "Precipitation";
+            hourPrecipitationTableHeader.appendChild(hourFullPrec);
 
             // Creating variable to get length of weatherInfo.hourly array
             const hourlyForecastLength = weatherInfo.hourly.time.length
@@ -738,31 +798,57 @@ weatherForm.addEventListener("submit", (event) => {
             // Creating data table header element and appending it to table row
             const dateTableHeader = document.createElement("th");
             dateTableHeader.className = "date-column";
-            dateTableHeader.textContent = "DATE";
+            dateTableHeader.textContent = "Date";
             tableRowHeader.appendChild(dateTableHeader);
 
 
             // Creating temperature table header element and appending it to table row
             const temperatureTableHeader = document.createElement("th");
             temperatureTableHeader.className = "temperature-column";
-            temperatureTableHeader.textContent = "TEMP";
-            temperatureTableHeader.ariaLabel = "Temperature"
             tableRowHeader.appendChild(temperatureTableHeader);
+
+            const abbrTempName = document.createElement("p");
+            abbrTempName.className = "abbr-text";
+            abbrTempName.textContent = "Temp";
+            abbrTempName.ariaLabel = "Temperature"
+            temperatureTableHeader.appendChild(abbrTempName);
+
+            const fullTempName = document.createElement("p");
+            fullTempName.className = "full-text";
+            fullTempName.textContent = "Temperature";
+            temperatureTableHeader.appendChild(fullTempName);
 
             // Creating data table header element and appending it to table row
             const descriptionTableHeader = document.createElement("th");
             descriptionTableHeader.className = "description-column";
-            descriptionTableHeader.textContent = "DESC";
-            descriptionTableHeader.ariaLabel = "Description";
             tableRowHeader.appendChild(descriptionTableHeader);
+
+            const abbrDescName = document.createElement("p");
+            abbrDescName.className = "abbr-text";
+            abbrDescName.textContent = "Desc";
+            abbrDescName.ariaLabel = "Description";
+            descriptionTableHeader.appendChild(abbrDescName);
+
+            const fullDescName = document.createElement("p");
+            fullDescName.className = "full-text";
+            fullDescName.textContent = "Description";
+            descriptionTableHeader.appendChild(fullDescName);
 
             // Creating data table header element and appending it to table row
             const precipitationTableHeader = document.createElement("th");
             precipitationTableHeader.className = "precipitation-column";
-            precipitationTableHeader.textContent = "PRECIP";
-            precipitationTableHeader.ariaLabel = "Precipitation";
             tableRowHeader.appendChild(precipitationTableHeader);
 
+            const abbrPrecipName = document.createElement("p");
+            abbrPrecipName.className = "abbr-text";
+            abbrPrecipName.textContent = "Precip";
+            abbrPrecipName.ariaLabel = "Precipitation";
+            precipitationTableHeader.appendChild(abbrPrecipName);
+
+            const fullPrecipName = document.createElement("p");
+            fullPrecipName.className = "full-text";
+            fullPrecipName.textContent = "Precipitation";
+            precipitationTableHeader.appendChild(fullPrecipName);
 
             // Getting dailyLength for daily forecast
             const dailyLength = weatherInfo.daily.time.length;
@@ -782,9 +868,22 @@ weatherForm.addEventListener("submit", (event) => {
                 tableRowData.appendChild(weatherDateElement);
 
                 // Creating day of the week element and appending it to weatherDateElement
-                const dayOfWeek = document.createElement("p");
-                dayOfWeek.textContent = getDayOfWeek(date.getUTCDay());
+                const dayOfWeek = document.createElement("div");
+                dayOfWeek.className = "day-of-week"
                 weatherDateElement.appendChild(dayOfWeek);
+
+                const dayOfWeekVal = getDayOfWeek(date.getUTCDay());
+
+                const abbrDay = document.createElement("p");
+                abbrDay.className = "abbr-text";
+                abbrDay.textContent = dayOfWeekVal.abbr;
+                abbrDay.ariaLabel = dayOfWeekVal.full;
+                dayOfWeek.appendChild(abbrDay);
+
+                const fullDay = document.createElement("p");
+                fullDay.className = "full-text";
+                fullDay.textContent = dayOfWeekVal.full;
+                dayOfWeek.appendChild(fullDay);
 
                 // Creating weatherDate  and appending it to to weatherDateElement
                 const weatherDate = document.createElement("p");
@@ -848,6 +947,8 @@ weatherForm.addEventListener("submit", (event) => {
             fetchErrorElement.className = "fetch-error-element";
             fetchErrorElement.textContent = `Cannot locate your selected city, please try again`
             fetchErrorContainer.appendChild(fetchErrorElement);
+            formContainer.classList.add("invalid");
+            console.log(formContainer.innerHTML);
             console.error(error);
 
         } finally {
@@ -858,6 +959,7 @@ weatherForm.addEventListener("submit", (event) => {
     fetchData(location);
     weatherForm.reset();
 })
+
 
 // Getting footerContainer to append copyright symbol
 const footerContainer = document.querySelector(".footer-container");
