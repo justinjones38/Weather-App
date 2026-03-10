@@ -8,6 +8,11 @@ RESET
     box-sizing: border-box;
 }
 
+html {
+    scroll-behavior: smooth;
+    scroll-padding-top: 10px;
+}
+
 
 
 /* ======================================================
@@ -26,6 +31,11 @@ CSS VARIABLES
 
     /* Opacity */
     --text-opacity: 80%;
+
+    /* Border Color */
+    --weather-border-style: 1px solid var(--primary-font-color);
+    --table-border-style: 2px solid rgba(255, 255, 255, 0.161);
+
 }
 
 /* ======================================================
@@ -52,8 +62,9 @@ img {
     display: block;
 }
 
-ul, li {
-   list-style-type: none; 
+ul,
+li {
+    list-style-type: none;
 }
 
 li {
@@ -64,7 +75,8 @@ li {
 /* ======================================================
 TYPGRAPHY
 =========================================================*/
-h1, h2 {
+h1,
+h2 {
     font-weight: 700;
     letter-spacing: 1px;
     opacity: var(--text-opacity);
@@ -73,13 +85,22 @@ h1, h2 {
     line-height: 1.3;
 }
 
+
 h1 {
     font-size: 1.5rem;
 }
 
 h2 {
     font-size: 1.1rem;
-    margin-bottom: 0.3em;
+    margin-bottom: 0.5em;
+}
+
+h3 {
+    font-size: 1rem;
+    opacity: var(--text-opacity);
+    text-align: center;
+    text-transform: capitalize;
+    margin-bottom: 0.5em;
 }
 
 
@@ -123,6 +144,10 @@ header {
     margin: 0 auto;
     min-height: 35px;
     border-radius: 6px;
+}
+
+.form-container.invalid {
+    border: 2px solid red;
 }
 
 .form-input {
@@ -194,7 +219,8 @@ header {
 .weather-data-img {
     width: 7%;
     min-width: 50px;
-    margin: 0 auto;;
+    margin: 0 auto;
+    ;
 }
 
 .weather-data-temperature {
@@ -226,7 +252,7 @@ header {
 
 .weather-data-stats-item {
     display: flex;
-    border-bottom: 1px solid var(--primary-font-color);
+    border-bottom: var(--weather-border-style);
     width: 100%;
     justify-content: space-between;
     font-size: 1.1rem;
@@ -282,43 +308,105 @@ header {
     min-width: 50px;
 }
 
-.hourly-forecast-list-item-temp, .hourly-forecast-list-item-time {
+.hourly-forecast-list-item-temp,
+.hourly-forecast-list-item-time {
     font-size: 1.2rem;
-} 
+}
+
+.hourly-table-section {
+    display: none;
+}
+
+.hourly-table-btn {
+    display: block;
+    width: 80%;
+    max-width: 275px;
+    text-align: center;
+    margin: 1em auto 2em auto;
+    background-color: transparent;
+    padding: 1em 1.25em;
+    font-size: 1.2rem;
+    color: var(--primary-font-color);
+    border: 1px solid var(--primary-font-color);
+    border-radius: 8px;
+    text-decoration: none;
+    transition: box-shadow 0.3s;
+}
+
+
+
+.hourly-table-btn:hover,
+.hourly-table-btn:focus {
+    box-shadow: 0 0 2px 2px var(--primary-font-color);
+    cursor: pointer;
+}
+
 
 /* ---------- 7 DAY FORECAST ----------- */
-.daily-forecast-table {
-    max-width: 1000px;
-    margin: 0 auto;
-    width: 100%;
-    text-align: center;
+.table-header {
+    text-transform: uppercase;
 }
 
-.date-column, .temperature-column, .description-column, .precipitation-column {
-    text-align: center;
+.full-text {
+    display: none;
 }
+
+.daily-forecast-container {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.daily-forecast-table {
+    width: 100%;
+    margin: 0 auto;
+    border-spacing: 0;
+}
+
+.table-row>td {
+    padding: 0.5em 0 0.2em 0;
+    border-bottom: var(--table-border-style)
+}
+
+
 
 .date-column {
-    width: 8%;
+    min-width: 50px;
+    width: 15%;
+    text-align: center;
+}
+
+th.temperature-column {
+    text-align: center;
 }
 
 .temperature-column {
-    width: 20%;
+    width: 15%;
+    min-width: 100px;
+    text-align: center;
 }
 
 .description-column {
-    width: 15%;
+    width: 25%;
+    min-width: 80px;
+    text-align: center;
 }
+
+
 
 .precipitation-column {
-    width: 10%;
+    min-width: 60px;
+    text-align: center;
+    width: 20%;
 }
 
-.weather-table-icon{
-    margin: 0 auto;
-    width: 20%;
+
+
+.weather-table-icon {
+    width: 8%;
     max-width: 75px;
-    min-width: 50px;
+    min-width: 40px;
+    margin: 0 auto;
 }
 
 .high-temperature-container::after {
@@ -349,14 +437,14 @@ footer {
     padding: 0.5em;
 }
 
-.flaticon-credit > a {
+.flaticon-credit>a {
     font-weight: 700;
     color: var(--footer-link-color);
     border-bottom: var(--form-link-color);
     transition: color 0.3s opacity 0.3s;
 }
 
-.flaticon-credit > a:hover {
+.flaticon-credit>a:hover {
     color: var(--primary-font-color);
     opacity: 1;
 }
@@ -393,14 +481,32 @@ MEDIA QUERIES
     .hourly-forecast-list {
         grid-template-columns: repeat(6, 1fr);
     }
+
     .daily-forecast-table {
-        font-size: 1rem;
+        font-size: 1.1rem;
     }
+
+    .table-header {
+        text-transform: initial;
+    }
+
+    .abbr-text {
+        display: none;
+    }
+
+    .full-text {
+        display: block;
+    }
+
 }
 
 @media (min-width: 800px) {
     html {
         font-size: 17px;
+    }
+
+    .daily-forecast-table {
+        width: 90%;
     }
 }
 
