@@ -860,6 +860,7 @@ weatherForm.addEventListener("submit", (event) => {
                 const abbrDay = document.createElement("p");
                 abbrDay.className = "abbr-text";
                 abbrDay.textContent = dayOfWeekVal.abbr;
+                abbrDay.ariaLabel = dayOfWeekVal.full;
                 dayOfWeek.appendChild(abbrDay);
 
                 const fullDay = document.createElement("p");
