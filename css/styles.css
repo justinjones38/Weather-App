@@ -313,6 +313,7 @@ header {
     font-size: 1.2rem;
 }
 
+
 .hourly-table-section {
     display: none;
 }
@@ -342,7 +343,22 @@ header {
 }
 
 
-/* ---------- 7 DAY FORECAST ----------- */
+/* ---------- HOURLY AND 7 DAY FORECAST Table ----------- */
+
+
+
+.forecast-container {
+    max-width: 1200px;
+    width: 95%;
+    margin: 0 auto;
+}
+
+.forecast-table {
+    width: 100%;
+    margin: 0 auto;
+    border-spacing: 0;
+}
+
 .table-header {
     text-transform: uppercase;
 }
@@ -351,55 +367,38 @@ header {
     display: none;
 }
 
-.daily-forecast-container {
-    max-width: 1200px;
-    width: 95%;
-    margin: 0 auto;
-}
-
-.daily-forecast-table {
-    width: 100%;
-    margin: 0 auto;
-    border-spacing: 0;
-}
-
-.table-row>td {
+.table-row > td {
     padding: 0.5em 0 0.2em 0;
     border-bottom: var(--table-border-style)
 }
 
+.date-column,
+.temperature-column,
+.description-column,
+.precipitation-column {
+    text-align: center;
+}
 
 
 .date-column {
     min-width: 50px;
     width: 15%;
-    text-align: center;
-}
-
-th.temperature-column {
-    text-align: center;
 }
 
 .temperature-column {
     width: 15%;
     min-width: 100px;
-    text-align: center;
 }
 
 .description-column {
     width: 25%;
     min-width: 80px;
-    text-align: center;
 }
-
-
 
 .precipitation-column {
     min-width: 60px;
-    text-align: center;
     width: 20%;
 }
-
 
 
 .weather-table-icon {
@@ -410,10 +409,9 @@ th.temperature-column {
 }
 
 .high-temperature-container::after {
-    content: "/";
+    content: " / ";
     display: inline;
 }
-
 
 
 /* --------- FOOTER -------------- */
@@ -437,14 +435,14 @@ footer {
     padding: 0.5em;
 }
 
-.flaticon-credit>a {
+.flaticon-credit > a {
     font-weight: 700;
     color: var(--footer-link-color);
     border-bottom: var(--form-link-color);
     transition: color 0.3s opacity 0.3s;
 }
 
-.flaticon-credit>a:hover {
+.flaticon-credit > a:hover {
     color: var(--primary-font-color);
     opacity: 1;
 }
@@ -482,7 +480,7 @@ MEDIA QUERIES
         grid-template-columns: repeat(6, 1fr);
     }
 
-    .daily-forecast-table {
+    .forecast-table {
         font-size: 1.1rem;
     }
 
@@ -498,6 +496,13 @@ MEDIA QUERIES
         display: block;
     }
 
+    .date-column,
+    .temperature-column,
+    .description-column,
+    .precipitation-column {
+        width: 25%;
+    }
+
 }
 
 @media (min-width: 800px) {
@@ -505,13 +510,8 @@ MEDIA QUERIES
         font-size: 17px;
     }
 
-    .daily-forecast-table {
+    .forecast-table {
         width: 90%;
     }
 }
 
-@media (min-width: 1500px) {
-    html {
-        font-size: 18px;
-    }
-}
