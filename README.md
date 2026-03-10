@@ -64,7 +64,7 @@ Thanks to Flaticon for providing these weather icons for this app.
 You can visit their site here: <a href="https://www.flaticon.com/" rel="noreferrer" target="_blank">Flaticon</a> for other great images too.
 
 ### 
-List of weather used with credit to creators to the creator on Flaticon
+List of weather icons used with credit to the respective creator on Flaticon
 - <a href="https://www.flaticon.com/free-icons/drizzle" title="drizzle icons" rel="noreferrer" target="_blank">Drizzle icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/foggy" title="foggy icons" rel="noreferrer" target="_blank">Foggy icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/freezing-rain" title="freezing rain icons" rel="noreferrer" target="_blank">Freezing rain icons created by Grafixpoint - Flaticon</a>
