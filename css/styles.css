@@ -19,6 +19,12 @@ CSS VARIABLES
     --search-bg-color: #EBEBEB;
     --description-font: #E4E4E7;
     --footer-bg-color: #061232;
+    --form-hover-color: #303133;
+    --footer-link-color: #D6D6D6;
+    --logo-hover-color: #919296;
+    --red-error-color: #FAE0E0;
+
+    /* Opacity */
     --text-opacity: 80%;
 }
 
@@ -32,6 +38,10 @@ body {
     color: var(--primary-font-color);
 }
 
+button:hover {
+    cursor: pointer;
+}
+
 input {
     font-family: inherit;
     appearance: none;
@@ -42,22 +52,34 @@ img {
     display: block;
 }
 
-button:hover {
-    cursor: pointer;
+ul, li {
+   list-style-type: none; 
 }
 
+li {
+    margin: 0;
+    padding: 0;
+}
 
 /* ======================================================
 TYPGRAPHY
 =========================================================*/
-h1 {
-    font-size: 1.1rem;
+h1, h2 {
     font-weight: 700;
     letter-spacing: 1px;
     opacity: var(--text-opacity);
     text-align: center;
     text-transform: capitalize;
     line-height: 1.3;
+}
+
+h1 {
+    font-size: 1.5rem;
+}
+
+h2 {
+    font-size: 1.1rem;
+    margin-bottom: 0.3em;
 }
 
 
@@ -74,7 +96,16 @@ header {
     display: flex;
     align-items: center;
     margin: 0.25em 0 0 0.25em;
-    gap: 0.25em
+    gap: 0.25em;
+    background-color: transparent;
+    border: none;
+    color: inherit;
+    transition: color 0.3s;
+}
+
+.header-logo-container:focus,
+.header-logo-container:hover {
+    color: var(--logo-hover-color);
 }
 
 .weather-logo {
@@ -120,18 +151,27 @@ header {
 
 .form-button:hover,
 .form-button:focus {
-    background-color: gray;
+    background-color: var(--form-hover-color);
+}
+
+/* ---------- FETCH ERROR -----------*/
+.fetch-error-container {
+    color: var(--red-error-color);
+    width: 90%;
+    max-width: 600px;
+    font-size: 1.2rem;
+    margin: 0.75em auto 0 auto;
+    text-align: center;
 }
 
 /* ---------- DESCRIPTION -----------*/
 .intro-container {
     max-width: 800px;
-    width: 90%;
+    width: 95%;
     min-height: 60vh;
     display: flex;
     flex-direction: column;
     margin: 0 auto;
-    margin-bottom: 20vh;
 }
 
 .intro-description {
@@ -146,7 +186,7 @@ header {
 
 /* ---------- WEATHER DATA -----------*/
 .weather-data-container {
-    width: 95%;
+    width: 98%;
     margin: 1em auto;
     line-height: 1.2;
 }
@@ -171,25 +211,161 @@ header {
 .weather-data-condition {
     text-align: center;
     opacity: var(--text-opacity);
+    margin-bottom: 1.5em;
 }
+
+.weather-data-stats {
+    display: grid;
+    grid-template-columns: 1fr;
+    width: 85%;
+    max-width: 400px;
+    margin: 0 auto;
+    row-gap: 0.5em;
+    margin-bottom: 2em;
+}
+
+.weather-data-stats-item {
+    display: flex;
+    border-bottom: 1px solid var(--primary-font-color);
+    width: 100%;
+    justify-content: space-between;
+    font-size: 1.1rem;
+    gap: 1em;
+}
+
+/* Unit System Button Container */
+.button-container-unit-system {
+    display: flex;
+    gap: 2em;
+    justify-content: center;
+    margin-bottom: 2em;
+}
+
+.btn-unit {
+    background-color: transparent;
+    border: 1px solid var(--primary-font-color);
+    color: var(--primary-font-color);
+    padding: 0.5em 1em;
+    border-radius: 8px;
+    opacity: 1;
+    font-size: 1rem;
+}
+
+.btn-unit:hover {
+    box-shadow: 0 0 2px 2px var(--primary-font-color);
+}
+
+
+.btn-unit:disabled {
+    opacity: 0.6;
+}
+
+.btn-unit:disabled:hover {
+    box-shadow: none;
+}
+
+/* ---------- HOURLY FORECAST ----------- */
+.hourly-forecast-list {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    justify-items: center;
+    gap: 1.5em;
+    margin-bottom: 2em;
+    max-width: 1000px;
+    margin: 0 auto 2em auto;
+    text-align: center;
+}
+
+.hourly-forecast-list-item-img {
+    margin: 0 auto 0.1em auto;
+    width: 2%;
+    min-width: 50px;
+}
+
+.hourly-forecast-list-item-temp, .hourly-forecast-list-item-time {
+    font-size: 1.2rem;
+} 
+
+/* ---------- 7 DAY FORECAST ----------- */
+.daily-forecast-table {
+    max-width: 1000px;
+    margin: 0 auto;
+    width: 100%;
+    text-align: center;
+}
+
+.date-column, .temperature-column, .description-column, .precipitation-column {
+    text-align: center;
+}
+
+.date-column {
+    width: 8%;
+}
+
+.temperature-column {
+    width: 20%;
+}
+
+.description-column {
+    width: 15%;
+}
+
+.precipitation-column {
+    width: 10%;
+}
+
+.weather-table-icon{
+    margin: 0 auto;
+    width: 20%;
+    max-width: 75px;
+    min-width: 50px;
+}
+
+.high-temperature-container::after {
+    content: "/";
+    display: inline;
+}
+
+
 
 /* --------- FOOTER -------------- */
-
 footer {
-    width: 95%;
-    max-width: 700px;
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    line-height: 1.2;
+}
+
+.footer-container {
+    width: 94%;
+    max-width: 600px;
     margin: 0 auto;
+    padding-bottom: 0.6em;
 }
 
-.flaricon-credit {
+.flaticon-credit {
+    font-size: 1.1rem;
+    opacity: var(--text-opacity);
+    padding: 0.5em;
+}
+
+.flaticon-credit > a {
+    font-weight: 700;
+    color: var(--footer-link-color);
+    border-bottom: var(--form-link-color);
+    transition: color 0.3s opacity 0.3s;
+}
+
+.flaticon-credit > a:hover {
+    color: var(--primary-font-color);
+    opacity: 1;
+}
+
+.footer-copyright {
     font-size: 0.8rem;
-    opacity: var(--text-opacity)
+    text-align: center;
+    opacity: var(--text-opacity);
 }
-
-
-/* ======================================================
-COMPONENTS
-=========================================================*/
 
 
 
@@ -204,6 +380,32 @@ UTILITIES
     display: block;
 }
 
+.static {
+    position: static;
+}
+
 /* ======================================================
 MEDIA QUERIES
 =========================================================*/
+
+/* -------SMALLER TABLETS */
+@media (min-width: 650px) {
+    .hourly-forecast-list {
+        grid-template-columns: repeat(6, 1fr);
+    }
+    .daily-forecast-table {
+        font-size: 1rem;
+    }
+}
+
+@media (min-width: 800px) {
+    html {
+        font-size: 17px;
+    }
+}
+
+@media (min-width: 1500px) {
+    html {
+        font-size: 18px;
+    }
+}

@@ -30,20 +30,21 @@
 
 <body>
     <header>
-        <div class="header-logo-container">
+        <button class="header-logo-container header-button">
             <i class="fa-solid fa-cloud-showers-heavy"></i>
             <p class="weather-logo">Weather App</p>
-        </div>
+        </button>
     </header>
 
     <main>
         <form class="weather-form">
             <div class="form-container">
-                <input type="text" placeholder="Please enter a city" name="location" id="location" class="form-input"
+                <input type="text" placeholder="Enter a city or zipcode" name="location" id="location" class="form-input"
                     aria-label="Search for a city to get weather" required>
                 <button type="submit" class="form-button"><i class="fa-solid fa-magnifying-glass"></i></button>
             </div>
         </form>
+        <div class="fetch-error-container"></div>
 
         <div class="weather-data-container"></div>
         <div class="intro-container">
@@ -53,9 +54,10 @@
     </main>
     <footer>
         <div class="footer-container">
-            <p class="flaricon-credit">
-                Thanks to flaxicon for providing these weather icons for this app.
-                You can visit their site for other great images too.
+            <p class="flaticon-credit">
+                Thanks to Flaticon for providing these weather icons for this app.
+                You can visit their site here: <a href="https://www.flaticon.com/" rel="noreferrer" target="_blank">Flaticon</a> 
+                for other great images too.
             </p>
         </div>
     </footer>
