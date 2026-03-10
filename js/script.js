@@ -213,7 +213,7 @@ const getTimeByHour = (hour) => {
 // Function that converts time to minute in am or pm
 const getTimeByMinute = (hour, minute) => {
     // Adding leading 0 if minute is less than
-    if(minute < 10) {
+    if (minute < 10) {
         minute = `0${minute}`;
     }
 
@@ -227,7 +227,7 @@ const getTimeByMinute = (hour, minute) => {
     }
     else {
         return `${hour % 12}:${minute}pm`;
-    } 
+    }
 }
 
 // Function that converts to the correct day of the week
@@ -311,9 +311,11 @@ weatherForm.addEventListener("submit", (event) => {
 
     // Fetching data from the API
     const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
+        const locationArr = location.split(",");
+        console.log(locationArr);
         try {
             // 1st fetch: Fetching longitude and latitude to get location of city
-            const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
+            const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${locationArr[0]}&format=json`);
 
             // Verifying that location is found
             if (!locationRes.ok) {
@@ -321,9 +323,12 @@ weatherForm.addEventListener("submit", (event) => {
             }
             const locationData = await locationRes.json();
 
+            console.log(locationData.results.length);
+            for (let index = 0; index < location.results.length)
             // Getting the longitude and latitude from locationData
             const longitude = locationData.results[0].longitude;
             const latitude = locationData.results[0].latitude;
+
 
             // 2nd fetch Fetching weather information on location using latitude and longitude
             const weatherRes = await fetch(`https://api.open-meteo.com/v1/forecast?latitude=${latitude}&longitude=${longitude}&daily=sunrise,sunset,weather_code,temperature_2m_max,temperature_2m_min,wind_speed_10m_max,wind_gusts_10m_max,precipitation_probability_max&hourly=temperature_2m,relative_humidity_2m,dew_point_2m,apparent_temperature,precipitation_probability,weather_code,wind_speed_10m,is_day&current=temperature_2m,relative_humidity_2m,apparent_temperature,is_day,wind_speed_10m,wind_direction_10m,wind_gusts_10m,weather_code,cloud_cover,rain&timezone=auto${windSpeedUnit}${temperatureUnit}${precipitationUnit}&forecast_hours=25&past_hours=0&forecast_days=10`)
@@ -454,7 +459,7 @@ weatherForm.addEventListener("submit", (event) => {
             sunrise.textContent = `Sunrise Time: `;
             const sunriseTime = document.createElement("span");
             const sunriseTimeValue = new Date(weatherInfo.daily.sunrise[0]);
-            sunriseTime.textContent = getTimeByMinute(sunriseTimeValue.getHours(),sunriseTimeValue.getMinutes());
+            sunriseTime.textContent = getTimeByMinute(sunriseTimeValue.getHours(), sunriseTimeValue.getMinutes());
             sunrise.appendChild(sunriseTime);
             weatherContainerStats.appendChild(sunrise);
 
@@ -464,7 +469,7 @@ weatherForm.addEventListener("submit", (event) => {
             sunset.textContent = `Sunset Time: `;
             const sunsetTime = document.createElement("span");
             const sunsetTimeValue = new Date(weatherInfo.daily.sunset[0]);
-            sunsetTime.textContent = getTimeByMinute(sunsetTimeValue.getHours(),sunsetTimeValue.getMinutes());
+            sunsetTime.textContent = getTimeByMinute(sunsetTimeValue.getHours(), sunsetTimeValue.getMinutes());
             sunset.appendChild(sunsetTime);
             weatherContainerStats.appendChild(sunset);
 
@@ -673,7 +678,7 @@ weatherForm.addEventListener("submit", (event) => {
 
                 // Appending weatherIcon to hourlyDescriptionData
                 const hourlyWeatherIcon = getWeatherIcon(weatherInfo.hourly.weather_code[index], weatherInfo.hourly.is_day[index]);
-                
+
                 const hourlyWeatherImg = document.createElement("img");
                 hourlyWeatherImg.src = hourlyWeatherIcon.imgSrc;
                 hourlyWeatherImg.alt = hourlyWeatherIcon.info;
@@ -702,7 +707,7 @@ weatherForm.addEventListener("submit", (event) => {
             // functon to display/hide hourlyForecastTable
             hourlyTableButton.addEventListener("click", () => {
                 fullhourlyForecastSection.classList.toggle("visible");
-                if(fullhourlyForecastSection.classList.contains("visible")) {
+                if (fullhourlyForecastSection.classList.contains("visible")) {
                     hourlyTableButton.textContent = "Hide Extra Hours";
                 } else {
                     hourlyTableButton.textContent = "View next 18 Hours";
