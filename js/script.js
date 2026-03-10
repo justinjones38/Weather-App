@@ -267,13 +267,12 @@ const getDayOfWeek = (val) => {
 const getWindSpeedDirection = (val) => {
     const windSpeedDirection = ["N", "NNE", "NE", "ENE", "E", "ESE", "SE", "SSE", "S", "SSW", "SW", "WSW", "W", "WNW", "NW", "NNW", "N"];
     const index = Math.round(val / 22.5);
-    console.log(windSpeedDirection);
     return windSpeedDirection[index];
 }
 
 // Remove invalid class when a key is down
 formInput.addEventListener("keydown", () => {
-    formContainer.classList.remove("invalid");  
+    formContainer.classList.remove("invalid");
 })
 
 // Selecting button via documentQuerySelector
@@ -341,7 +340,6 @@ weatherForm.addEventListener("submit", (event) => {
 
     // Fetching data from the API
     const fetchData = async (location, windSpeedUnit = `&wind_speed_unit=mph`, temperatureUnit = "&temperature_unit=fahrenheit", precipitationUnit = "&precipitation_unit=inch") => {
-        console.log(location);
         try {
             // 1st fetch: Fetching longitude and latitude to get location of city
             const locationRes = await fetch(`https://geocoding-api.open-meteo.com/v1/search?name=${location}&format=json`);
@@ -435,7 +433,6 @@ weatherForm.addEventListener("submit", (event) => {
             windSpeed.className = "weather-data-stats-item";
             windSpeed.textContent = `Wind Speed: `;
             const windSpeedVal = document.createElement("span")
-            console.log(weatherInfo.current.wind_direction_10m);
             windSpeedVal.textContent = `${getWindSpeedDirection(weatherInfo.current.wind_direction_10m)} ${Math.round(weatherInfo.current.wind_speed_10m)}${weatherInfo.current_units.wind_speed_10m}`
             windSpeed.appendChild(windSpeedVal);
             weatherContainerStats.appendChild(windSpeed);
@@ -969,8 +966,6 @@ weatherForm.addEventListener("submit", (event) => {
             fetchErrorElement.textContent = `Cannot locate your selected city, please try again`
             fetchErrorContainer.appendChild(fetchErrorElement);
             formContainer.classList.add("invalid");
-            console.error(error);
-
         } finally {
             formButton.disabled = false;
         }
