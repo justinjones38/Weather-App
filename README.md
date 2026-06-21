@@ -1,8 +1,12 @@
 # Weather App
 A responsive weather app built using using HTML, CSS, and JavaScript. It fetches weather information and provides hourly forecast and a 10 day forecast. 
 
+---
+
 ## Live Demo
+
 [View Live Website](https://weather-app33031039124.netlify.app/)
+
 --- 
 
 ## Table of Contents
