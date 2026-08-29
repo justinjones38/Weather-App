@@ -1,3 +1,22 @@
+import { weatherCodeList } from "./data/weatherCodeList";
+
+// Function to return weather icons
+export function getWeatherIcon(weatherCode = 0, dayTime = 1) {
+  // Weather codes greater than 3 use the same image and info, so dayTime is set to 1.
+  // So they are used together
+  if (weatherCode > 3) {
+    dayTime = 1;
+  }
+
+  // Filters the array so only the item that matches the weatherCode and dayTime returns
+  const filteredArray = weatherCodeList.filter((item) => {
+    return weatherCode === item.weatherCode && dayTime === item.dayTime;
+  });
+
+  // Returns the 1 item in the array that has the weatherCode
+  return filteredArray[0];
+}
+
 // Function that converts time to hour in am or pm
 export function getTimeByHour(hour) {
   if (hour === 0) {

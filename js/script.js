@@ -1,9 +1,9 @@
-import getWeatherIcon from "./getWeatherIcon.js";
 import {
   getDayOfWeek,
   getTimeByHour,
   getTimeByMinute,
   getWindSpeedDirection,
+  getWeatherIcon,
 } from "./utils.js";
 
 // Getting weatherForm via documentQuerySelector to get form Data
