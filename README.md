@@ -1,5 +1,6 @@
 # Weather App
-A responsive weather app built using using HTML, CSS, and JavaScript. It fetches weather information and provides hourly forecast and a 10 day forecast. 
+
+A responsive weather app built using using HTML, CSS, and JavaScript. It fetches weather information and provides hourly forecast and a 10 day forecast.
 
 ---
 
@@ -7,9 +8,10 @@ A responsive weather app built using using HTML, CSS, and JavaScript. It fetches
 
 [View Live Website](https://weather-app33031039124.netlify.app/)
 
---- 
+---
 
 ## Table of Contents
+
 - [Installation](#installation)
 - [Usage](#usage)
 - [Features](#features)
@@ -20,6 +22,7 @@ A responsive weather app built using using HTML, CSS, and JavaScript. It fetches
 ---
 
 ## Installation
+
 1. Clone the repository
 
 ```bash
@@ -35,21 +38,23 @@ cd Weather-App
 ---
 
 ## Usage
+
 To run the project, open the HTML file in your local browser.
 
 ---
 
 ## Features
+
 - Shows hourly forecast and 10 day forecast for any city that you search
 - View forecast data with easy-to-read icons
 - Allows you to view data in imperial and metric units with buttons that easily convert between the two
 
 ---
 
-## Contributing 
+## Contributing
 
 1. Fork this repository
-2. Create a new branch ``` git checkout -B feature-branch ``` 
+2. Create a new branch `git checkout -B feature-branch`
 
 3. Make your changes
 4. Push your changes to GitHub
@@ -58,19 +63,23 @@ To run the project, open the HTML file in your local browser.
 ---
 
 ## Demo Video
+
 <img src="images/demo-video.gif" alt="Demo Video showing Weather App">
 
 ---
 
 ## Acknowledgments
+
 Thanks to Open-Meteo for their amazing Weather API. It was amazing to use their data for this project. Please view their website <a href="https://open-meteo.com/" rel="noreferrer" target="_blank">Open-Meteo</a>.
 to view their API
 
 Thanks to Flaticon for providing these weather icons for this app.
 You can visit their site here: <a href="https://www.flaticon.com/" rel="noreferrer" target="_blank">Flaticon</a> for other great images too.
 
-### 
+###
+
 List of weather icons used with credit to the respective creator on Flaticon
+
 - <a href="https://www.flaticon.com/free-icons/drizzle" title="drizzle icons" rel="noreferrer" target="_blank">Drizzle icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/foggy" title="foggy icons" rel="noreferrer" target="_blank">Foggy icons created by Freepik - Flaticon</a>
 - <a href="https://www.flaticon.com/free-icons/freezing-rain" title="freezing rain icons" rel="noreferrer" target="_blank">Freezing rain icons created by Grafixpoint - Flaticon</a>
